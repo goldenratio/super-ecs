@@ -132,8 +132,8 @@ export class World {
   }
 
   /**
-   * Returns the signal for entities added with the specified components. The
-   * signal is also emitted when a component is added to an entity causing it
+   * Returns the Observable for entities added with the specified components. The
+   * Observable is also emitted when a component is added to an entity causing it
    * match the specified component names.
    * @param componentNames
    */
@@ -151,8 +151,8 @@ export class World {
   }
 
   /**
-   * Returns the signal for entities removed with the specified components.
-   * The signal is also emitted when a component is removed from an entity
+   * Returns the Observable for entities removed with the specified components.
+   * The Observable is also emitted when a component is removed from an entity
    * causing it to no longer match the specified component names.
    * @param componentNames
    */
