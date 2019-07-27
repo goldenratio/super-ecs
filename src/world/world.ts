@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
 import { System } from '../system'
 import { Entity } from '../entity';
@@ -6,12 +6,15 @@ import { Entity } from '../entity';
 import { Component } from '../component';
 import { EntityList } from './entity-list';
 import { Family } from './family';
+import { takeUntil } from 'rxjs/operators';
 
 export class World {
 
   private readonly _systems: Array<System> = [];
   private readonly _entities = new EntityList();
   private readonly _families = new Map<string, Family>();
+
+  private readonly _disposeEntityMap = new Map<Entity, Subject<void>>();
 
   constructor() {
     //
@@ -32,10 +35,8 @@ export class World {
    * @param system
    */
   removeSystem(system: System): World {
-
     const systems = this._systems;
     const len = systems.length;
-
     for (let i = 0; i < len; ++i) {
       if (systems[i] === system) {
         systems.splice(i, 1);
@@ -64,13 +65,18 @@ export class World {
     // try to add the entity into each family
     this._families.forEach(family => family.addEntityIfMatch(entity));
 
+    const dispose$ = new Subject<void>();
+    this._disposeEntityMap.set(entity, dispose$);
+
     // update the entity-family relationship whenever components are
     // added to or removed from the entities
     const { componentAdded$, componentRemoved$ } = entity;
     componentAdded$
+      .pipe(takeUntil(dispose$))
       .subscribe(component => this.onComponentAdded(entity, component));
 
     componentRemoved$
+      .pipe(takeUntil(dispose$))
       .subscribe(component => this.onComponentRemoved(entity, component));
 
     this._entities.add(entity);
@@ -84,6 +90,12 @@ export class World {
   removeEntity(entity: Entity): World {
     this._families.forEach(family => family.removeEntity(entity));
     this._entities.remove(entity);
+
+    const dispose$ = this._disposeEntityMap.get(entity);
+    if (typeof dispose$ !== 'undefined') {
+      dispose$.next();
+      this._disposeEntityMap.delete(entity);
+    }
     return this;
   }
 
