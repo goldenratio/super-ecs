@@ -10,6 +10,9 @@ export class Component {
   readonly name: string;
 
   constructor(name: string) {
+    if (name.trim() === '') {
+      throw Error('invalid component name');
+    }
     this.name = name;
   }
 }
