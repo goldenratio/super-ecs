@@ -46,21 +46,23 @@ export class Entity {
    * Add a component to this entity.
    * @param component
    */
-  addComponent(component: Component): void {
+  addComponent(component: Component): Entity {
     this._componentMap.set(component.name, component);
     this._componentAddedSubject$.next(component);
+    return this;
   }
 
   /**
    * Remove a component from this entity by name.
    * @param componentName
    */
-  removeComponent(componentName: symbol): void {
+  removeComponent(componentName: symbol): Entity {
     const component = this._componentMap.get(componentName);
     if (typeof component !== 'undefined') {
       this._componentMap.delete(componentName);
       this._componentRemovedSubject$.next(component);
     }
+    return this;
   }
 
   /**

@@ -1,8 +1,116 @@
+import { Component, Entity } from '../src';
+
+const COMPONENT_A = Symbol('COMPONENT_A');
+const COMPONENT_B = Symbol('COMPONENT_B');
+const COMPONENT_C = Symbol('COMPONENT_C');
 
 describe('Entity', () => {
+  it('should have unique id', () => {
+    const a = new Entity();
+    const b = new Entity();
 
-  it('should check component name', () => {
+    expect(a.id).toBe(0);
+    expect(b.id).toBe(1);
+  });
 
+  it('should return true when checking added components', function () {
+    const CompA = new Component(COMPONENT_A);
+    const CompB = new Component(COMPONENT_B);
+    const CompC = new Component(COMPONENT_C);
 
+    const entity = new Entity();
+    entity
+      .addComponent(CompA)
+      .addComponent(CompB)
+      .addComponent(CompC);
+
+    expect(entity.hasComponent(COMPONENT_A)).toBe(true);
+    expect(entity.hasComponent(COMPONENT_B)).toBe(true);
+    expect(entity.hasComponent(COMPONENT_C)).toBe(true);
+  });
+
+  it('should return false when checking removed components', function () {
+    const CompA = new Component(COMPONENT_A);
+    const CompB = new Component(COMPONENT_B);
+    const CompC = new Component(COMPONENT_C);
+
+    const entity = new Entity();
+    entity
+      .addComponent(CompA)
+      .addComponent(CompB)
+      .addComponent(CompC);
+
+    entity
+      .removeComponent(COMPONENT_A)
+      .removeComponent(COMPONENT_B);
+
+    expect(entity.hasComponent(COMPONENT_A)).toBe(false);
+    expect(entity.hasComponent(COMPONENT_B)).toBe(false);
+    expect(entity.hasComponent(COMPONENT_C)).toBe(true);
+  });
+
+  it('should return the correct component', function () {
+    const CompA = new Component(COMPONENT_A);
+    const CompB = new Component(COMPONENT_B);
+    const CompC = new Component(COMPONENT_C);
+
+    const entity = new Entity();
+    entity
+      .addComponent(CompA)
+      .addComponent(CompB)
+      .addComponent(CompC);
+
+    expect(entity.getComponent(COMPONENT_A)).toBe(CompA);
+    expect(entity.getComponent(COMPONENT_B)).toBe(CompB);
+    expect(entity.getComponent(COMPONENT_C)).toBe(CompC);
+    expect(entity.getComponent(Symbol('invalid'))).toBeUndefined();
+  });
+
+  it('should emit Observables when adding components', function () {
+
+    const CompA = new Component(COMPONENT_A);
+    const CompB = new Component(COMPONENT_B);
+    const CompC = new Component(COMPONENT_C);
+
+    let count = 0;
+    const entity = new Entity();
+    entity
+      .componentAdded$
+      .subscribe(() => {
+        count ++;
+      });
+
+    entity
+      .addComponent(CompA)
+      .addComponent(CompB)
+      .addComponent(CompC);
+
+    expect(count).toBe(3);
+  });
+
+  it('should emit signals when removing components', function () {
+
+    const CompA = new Component(COMPONENT_A);
+    const CompB = new Component(COMPONENT_B);
+    const CompC = new Component(COMPONENT_C);
+
+    let count = 0;
+    const entity = new Entity();
+    entity
+      .componentRemoved$
+      .subscribe(() => {
+        count ++;
+      });
+
+    entity
+      .addComponent(CompA)
+      .addComponent(CompB)
+      .addComponent(CompC);
+
+    entity
+      .removeComponent(COMPONENT_A)
+      .removeComponent(COMPONENT_B);
+
+    expect(count).toBe(2);
   });
 });
