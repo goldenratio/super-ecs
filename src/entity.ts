@@ -65,7 +65,7 @@ export class Entity {
   }
 
   /**
-   * Called this entity is removed from world
+   * Called when this entity is removed from world
    */
   removedFromWorld(): void {
     this._removedSubject$.next();
