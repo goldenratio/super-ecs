@@ -63,10 +63,16 @@ export class Entity {
     }
   }
 
+  /**
+   * Stream triggered when a component is added
+   */
   get componentAdded$(): Observable<Component> {
     return this._componentAddedSubject$;
   }
 
+  /**
+   * Stream triggered when a component is removed
+   */
   get componentRemoved$(): Observable<Component> {
     return this._componentRemovedSubject$;
   }
