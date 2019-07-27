@@ -114,7 +114,7 @@ export class World {
    * match the specified component names.
    * @param componentNames
    */
-  entityAdded(componentNames: ReadonlyArray<string>): Observable<Entity> {
+  entityAdded$(componentNames: ReadonlyArray<string>): Observable<Entity> {
 
     const familyId = this.generateFamilyId(componentNames);
     this.ensureFamilyExists(componentNames, familyId);
@@ -133,7 +133,7 @@ export class World {
    * causing it to no longer match the specified component names.
    * @param componentNames
    */
-  entityRemoved(componentNames: ReadonlyArray<string>): Observable<Entity> {
+  entityRemoved$(componentNames: ReadonlyArray<string>): Observable<Entity> {
 
     const familyId = this.generateFamilyId(componentNames);
     this.ensureFamilyExists(componentNames, familyId);
