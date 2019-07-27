@@ -56,6 +56,5 @@ export const bundle = () => {
 };
 
 export default commandLineArgs => {
-  const isProduction = commandLineArgs && commandLineArgs['config-production'] || false;
   return bundle();
 }

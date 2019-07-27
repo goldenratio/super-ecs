@@ -22,5 +22,7 @@
     "rollup-plugin-typescript2": "^0.21.1",
     "typescript": "^3.5.1"
   },
-  "dependencies": {}
+  "dependencies": {
+    "rxjs": "^6.5.2"
+  }
 }

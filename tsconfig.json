@@ -1,8 +1,9 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "noImplicitAny": false,
+    "noImplicitAny": true,
     "noUnusedLocals": true,
+    "strict": true,
     "module": "esnext",
     "moduleResolution": "node",
     "target": "es5",
