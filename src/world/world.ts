@@ -87,7 +87,7 @@ export class World {
   removeEntity(entity: Entity): World {
     this._families.forEach(family => family.removeEntity(entity));
     this._entities.remove(entity);
-    entity.onRemoved();
+    entity.removedFromWorld();
     return this;
   }
 
@@ -95,7 +95,9 @@ export class World {
    * Removes all entities
    */
   removeAllEntities(): World {
-    this._entities.toArray().forEach(entity => this.removeEntity(entity));
+    this._entities
+      .toArray()
+      .forEach(entity => this.removeEntity(entity));
     return this;
   }
 
