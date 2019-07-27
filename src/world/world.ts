@@ -1,9 +1,10 @@
 import { Observable } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 import { System } from '../system'
 import { Entity } from '../entity';
-import { Component } from '../component';
 
+import { Component } from '../component';
 import { EntityList } from './entity-list';
 import { Family } from './family';
 
@@ -66,15 +67,16 @@ export class World {
 
     // update the entity-family relationship whenever components are
     // added to or removed from the entities
-    const { componentAdded$, componentRemoved$ } = entity;
+    const { componentAdded$, componentRemoved$, removed$: entityRemoved$ } = entity;
     componentAdded$
+      .pipe(takeUntil(entityRemoved$))
       .subscribe(component => this.onComponentAdded(entity, component));
 
     componentRemoved$
+      .pipe(takeUntil(entityRemoved$))
       .subscribe(component => this.onComponentRemoved(entity, component));
 
     this._entities.add(entity);
-
     return this;
   }
 
@@ -82,9 +84,19 @@ export class World {
    * Remove and entity from this world.
    * @param entity
    */
-  removeEntity(entity: Entity): void {
+  removeEntity(entity: Entity): World {
     this._families.forEach(family => family.removeEntity(entity));
     this._entities.remove(entity);
+    entity.onRemoved();
+    return this;
+  }
+
+  /**
+   * Removes all entities
+   */
+  removeAllEntities(): World {
+    this._entities.toArray().forEach(entity => this.removeEntity(entity));
+    return this;
   }
 
   /**
