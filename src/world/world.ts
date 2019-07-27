@@ -2,10 +2,10 @@ import { Observable } from 'rxjs';
 
 import { System } from '../system'
 import { Entity } from '../entity';
+import { Component } from '../component';
 
 import { EntityList } from './entity-list';
 import { Family } from './family';
-import { Component } from '../component';
 
 export class World {
 
