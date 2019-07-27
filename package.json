@@ -1,7 +1,7 @@
 {
   "name": "super-ecs",
   "version": "1.0.0",
-  "description": "Entity Component System library in TypeScript",
+  "description": "Entity Component System library",
   "author": "Karthik VJ",
   "scripts": {
     "clean": "rimraf dist",
