@@ -147,7 +147,7 @@ export class World {
   }
 
   private generateFamilyId(componentNames: ReadonlyArray<string>): string {
-    return '$' + Array.prototype.join.call(componentNames, ',');
+    return `$${componentNames.join(',')}`;
   }
 
   private ensureFamilyExists(componentNames: ReadonlyArray<string>, familyId: string): void {
