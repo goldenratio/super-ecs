@@ -15,7 +15,6 @@ export class Entity {
 
   private readonly _componentAddedSubject$ = new Subject<Component>();
   private readonly _componentRemovedSubject$ = new Subject<Component>();
-  private readonly _removedSubject$ = new Subject<void>();
 
   private readonly _componentMap = new Map<string, Component>();
 
@@ -65,13 +64,6 @@ export class Entity {
   }
 
   /**
-   * Called when this entity is removed from world
-   */
-  removedFromWorld(): void {
-    this._removedSubject$.next();
-  }
-
-  /**
    * Stream triggered when a component is added
    */
   get componentAdded$(): Observable<Component> {
@@ -83,12 +75,5 @@ export class Entity {
    */
   get componentRemoved$(): Observable<Component> {
     return this._componentRemovedSubject$;
-  }
-
-  /**
-   * Stream triggered when this entity is removed
-   */
-  get removed$(): Observable<void> {
-    return this._removedSubject$;
   }
 }
