@@ -5,12 +5,14 @@ import { World } from './world';
  */
 export class System {
 
+  private _world: World | undefined;
+
   /**
    * Called when system is added to the world
    * @param world
    */
   addedToWorld(world: World): void {
-    //
+    this._world = world;
   }
 
   /**
@@ -18,7 +20,7 @@ export class System {
    * @param world
    */
   removedFromWorld(world: World): void {
-    //
+    this._world = undefined;
   }
 
   /**
@@ -27,5 +29,15 @@ export class System {
    */
   update(delta: number): void {
     //
+  }
+
+  /**
+   * Reference to the world
+   */
+  get world(): World {
+    if (!this._world) {
+      throw Error('wait till the world is added to the system');
+    }
+    return this._world;
   }
 }

@@ -1,7 +1,8 @@
 {
   "name": "super-ecs",
   "version": "1.0.0",
-  "description": "",
+  "description": "Entity Component System library",
+  "author": "Karthik VJ",
   "scripts": {
     "clean": "rimraf dist",
     "build": "npm run clean && rollup -c rollup.config.js",
@@ -10,7 +11,15 @@
   "main": "dist/super-ecs.js",
   "module": "dist/super-ecs.es.js",
   "types": "dist/types/index.d.ts",
+  "homepage": "https://github.com/goldenratio/super-ecs",
+  "bugs": {
+    "url": "https://github.com/goldenratio/super-ecs/issues"
+  },
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/goldenratio/super-ecs.git"
+  },
   "devDependencies": {
     "@types/jest": "^24.0.15",
     "rimraf": "^2.6.3",

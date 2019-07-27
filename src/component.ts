@@ -7,9 +7,9 @@ export class Component {
   /**
    * Component name. It should be unique
    */
-  readonly name: string;
+  readonly name: symbol;
 
-  constructor(name: string) {
+  constructor(name: symbol) {
     this.name = name;
   }
 }

@@ -7,13 +7,13 @@ import { EntityList } from './entity-list';
 
 export class Family {
 
-  private readonly _componentNames: ReadonlyArray<string>;
+  private readonly _componentNames: ReadonlyArray<symbol>;
 
   private readonly _entityAddedSubject$ = new Subject<Entity>();
   private readonly _entityRemovedSubject$ = new Subject<Entity>();
   private readonly _entities = new EntityList();
 
-  constructor(componentNames: ReadonlyArray<string>) {
+  constructor(componentNames: ReadonlyArray<symbol>) {
     this._componentNames = componentNames;
   }
 
@@ -28,7 +28,7 @@ export class Family {
    * Add the entity into the family if match.
    * @param entity
    */
-  addEntity(entity: Entity): void {
+  addEntityIfMatch(entity: Entity): void {
     if (!this._entities.has(entity) && this.matchEntity(entity)) {
       this._entities.add(entity);
       this._entityAddedSubject$.next(entity);
@@ -47,7 +47,7 @@ export class Family {
   }
 
   onComponentAdded(entity: Entity, component: Component): void {
-    this.addEntity(entity);
+    this.addEntityIfMatch(entity);
   }
 
   onComponentRemoved(entity: Entity, component: Component): void {
