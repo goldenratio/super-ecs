@@ -1,12 +1,12 @@
 import { Observable, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 import { System } from '../system'
 import { Entity } from '../entity';
-
 import { Component } from '../component';
+
 import { EntityList } from './entity-list';
 import { Family } from './family';
-import { takeUntil } from 'rxjs/operators';
 
 export class World {
 
@@ -113,7 +113,7 @@ export class World {
    * Get the entities having all the specified components.
    * @param componentNames
    */
-  getEntities(componentNames: ReadonlyArray<string>): ReadonlyArray<Entity> {
+  getEntities(componentNames: ReadonlyArray<symbol>): ReadonlyArray<Entity> {
 
     const familyId = this.generateFamilyId(componentNames);
     this.ensureFamilyExists(componentNames, familyId);
@@ -145,7 +145,7 @@ export class World {
    * match the specified component names.
    * @param componentNames
    */
-  entityAdded$(componentNames: ReadonlyArray<string>): Observable<Entity> {
+  entityAdded$(componentNames: ReadonlyArray<symbol>): Observable<Entity> {
 
     const familyId = this.generateFamilyId(componentNames);
     this.ensureFamilyExists(componentNames, familyId);
@@ -164,7 +164,7 @@ export class World {
    * causing it to no longer match the specified component names.
    * @param componentNames
    */
-  entityRemoved$(componentNames: ReadonlyArray<string>): Observable<Entity> {
+  entityRemoved$(componentNames: ReadonlyArray<symbol>): Observable<Entity> {
 
     const familyId = this.generateFamilyId(componentNames);
     this.ensureFamilyExists(componentNames, familyId);
@@ -177,11 +177,12 @@ export class World {
     throw Error(`unable to perform entityRemoved, ${componentNames}`);
   }
 
-  private generateFamilyId(componentNames: ReadonlyArray<string>): string {
-    return `$${componentNames.join(',')}`;
+  private generateFamilyId(componentNames: ReadonlyArray<symbol>): string {
+    const keys = componentNames.map(data => data.toString());
+    return `$-${keys.join(',')}`;
   }
 
-  private ensureFamilyExists(componentNames: ReadonlyArray<string>, familyId: string): void {
+  private ensureFamilyExists(componentNames: ReadonlyArray<symbol>, familyId: string): void {
     const families = this._families;
     if (families.has(familyId)) {
       return;

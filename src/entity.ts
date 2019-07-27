@@ -16,7 +16,7 @@ export class Entity {
   private readonly _componentAddedSubject$ = new Subject<Component>();
   private readonly _componentRemovedSubject$ = new Subject<Component>();
 
-  private readonly _componentMap = new Map<string, Component>();
+  private readonly _componentMap = new Map<symbol, Component>();
 
   constructor() {
     this.id = entityId++;
@@ -26,7 +26,7 @@ export class Entity {
    * Check if this entity has a component by name.
    * @param componentName
    */
-  hasComponent(componentName: string): boolean {
+  hasComponent(componentName: symbol): boolean {
     return this._componentMap.has(componentName);
   }
 
@@ -34,7 +34,7 @@ export class Entity {
    * Get a component of this entity by name.
    * @param componentName
    */
-  getComponent<T extends Component>(componentName: string): T | undefined {
+  getComponent<T extends Component>(componentName: symbol): T | undefined {
     const component = this._componentMap.get(componentName);
     if (typeof component !== 'undefined') {
       return component as T;
@@ -55,7 +55,7 @@ export class Entity {
    * Remove a component from this entity by name.
    * @param componentName
    */
-  removeComponent(componentName: string): void {
+  removeComponent(componentName: symbol): void {
     const component = this._componentMap.get(componentName);
     if (typeof component !== 'undefined') {
       this._componentMap.delete(componentName);

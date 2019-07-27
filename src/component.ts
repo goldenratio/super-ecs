@@ -7,12 +7,9 @@ export class Component {
   /**
    * Component name. It should be unique
    */
-  readonly name: string;
+  readonly name: symbol;
 
-  constructor(name: string) {
-    if (name.trim() === '') {
-      throw Error('invalid component name');
-    }
+  constructor(name: symbol) {
     this.name = name;
   }
 }

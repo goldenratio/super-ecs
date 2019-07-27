@@ -7,13 +7,13 @@ import { EntityList } from './entity-list';
 
 export class Family {
 
-  private readonly _componentNames: ReadonlyArray<string>;
+  private readonly _componentNames: ReadonlyArray<symbol>;
 
   private readonly _entityAddedSubject$ = new Subject<Entity>();
   private readonly _entityRemovedSubject$ = new Subject<Entity>();
   private readonly _entities = new EntityList();
 
-  constructor(componentNames: ReadonlyArray<string>) {
+  constructor(componentNames: ReadonlyArray<symbol>) {
     this._componentNames = componentNames;
   }
 
