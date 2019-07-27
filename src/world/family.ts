@@ -28,7 +28,7 @@ export class Family {
    * Add the entity into the family if match.
    * @param entity
    */
-  addEntity(entity: Entity): void {
+  addEntityIfMatch(entity: Entity): void {
     if (!this._entities.has(entity) && this.matchEntity(entity)) {
       this._entities.add(entity);
       this._entityAddedSubject$.next(entity);
@@ -47,7 +47,7 @@ export class Family {
   }
 
   onComponentAdded(entity: Entity, component: Component): void {
-    this.addEntity(entity);
+    this.addEntityIfMatch(entity);
   }
 
   onComponentRemoved(entity: Entity, component: Component): void {

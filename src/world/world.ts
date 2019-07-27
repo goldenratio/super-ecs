@@ -47,13 +47,22 @@ export class World {
   }
 
   /**
+   * Remove all systems from this world
+   */
+  removeAllSystems(): World {
+    this._systems.forEach(system => system.removedFromWorld(this));
+    this._systems.length = 0;
+    return this;
+  }
+
+  /**
    * Add an entity to this world.
    * @param entity
    */
   addEntity(entity: Entity): World {
 
     // try to add the entity into each family
-    this._families.forEach(family => family.addEntity(entity));
+    this._families.forEach(family => family.addEntityIfMatch(entity));
 
     // update the entity-family relationship whenever components are
     // added to or removed from the entities
@@ -152,18 +161,17 @@ export class World {
 
   private ensureFamilyExists(componentNames: ReadonlyArray<string>, familyId: string): void {
     const families = this._families;
-    // const familyId = this.generateFamilyId(componentNames);
+    if (families.has(familyId)) {
+      return;
+    }
 
-    if (!families.has(familyId)) {
-      // todo: remove .call
-      const family = new Family(Array.prototype.slice.call(componentNames));
-      families.set(familyId, family);
+    const family = new Family([...componentNames]);
+    families.set(familyId, family);
 
-      for (let node = this._entities.head; node; node = node.next) {
-        const family = families.get(familyId);
-        if (typeof family !== 'undefined') {
-          family.addEntity(node.entity);
-        }
+    for (let node = this._entities.head; node; node = node.next) {
+      const family = families.get(familyId);
+      if (typeof family !== 'undefined') {
+        family.addEntityIfMatch(node.entity);
       }
     }
   }
