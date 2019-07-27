@@ -1,5 +1,8 @@
 import { World } from './world';
 
+/**
+ * The system is responsible for updating the entities.
+ */
 export class System {
 
   /**
