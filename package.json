@@ -20,6 +20,12 @@
     "type": "git",
     "url": "https://github.com/goldenratio/super-ecs.git"
   },
+  "files": [
+    "dist/",
+    "package.json",
+    "README.md",
+    "LICENSE"
+  ],
   "devDependencies": {
     "@types/jest": "^24.0.15",
     "rimraf": "^2.6.3",
