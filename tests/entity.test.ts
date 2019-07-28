@@ -111,6 +111,9 @@ describe('Entity', () => {
       .removeComponent(COMPONENT_A)
       .removeComponent(COMPONENT_B);
 
+    // shouldn't throw error for invalid component name
+    entity.removeComponent(Symbol('invalid'));
+
     expect(count).toBe(2);
   });
 });
