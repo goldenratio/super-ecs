@@ -2,7 +2,7 @@
 Entity Component System library for JavaScript/TypeScript games.
 
 Port of [CES.js](https://github.com/qiao/ces.js) with some changes,
-- instead `signal`, we use `rxjs`
+- instead of `signal`, we use `rxjs`
 - component names should be of type `symbol`
 
 ## Basic Usage
