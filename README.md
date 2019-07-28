@@ -7,7 +7,7 @@ Port of [CES.js](https://github.com/qiao/ces.js) with some changes,
 
 ## Basic Usage
 
-> npm install super-ecs
+> npm install --save super-ecs
 
 https://www.npmjs.com/package/super-ecs
 
