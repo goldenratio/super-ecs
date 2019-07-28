@@ -24,4 +24,15 @@ describe('System', () => {
     world.removeSystem(system);
     expect(removedFromWorld).toHaveBeenCalled();
   });
+
+  it('should have correct reference to world', function () {
+
+    const system = new System();
+
+    const world = new World();
+    world.addSystem(system);
+
+    // expect(system.world).toBeDefined();
+    // expect(system.world).toBe(world);
+  });
 });
