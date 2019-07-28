@@ -6,7 +6,7 @@
   "scripts": {
     "clean": "rimraf dist",
     "build": "npm run clean && rollup -c rollup.config.js",
-    "test": "jest --env=node --colors --coverage test"
+    "test": "jest --env=node --colors"
   },
   "main": "dist/super-ecs.js",
   "module": "dist/super-ecs.es.js",

@@ -36,7 +36,7 @@ export class System {
    */
   get world(): World {
     if (!this._world) {
-      throw Error('wait till the world is added to the system');
+      throw Error('wait till the system is added to the world');
     }
     return this._world;
   }

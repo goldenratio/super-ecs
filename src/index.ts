@@ -1,4 +1,4 @@
-export * from './component';
-export * from './entity';
-export * from './system';
-export * from './world';
+export { Entity } from './entity';
+export { Component } from './component';
+export { System } from './system';
+export { World } from './world';
