@@ -12,7 +12,7 @@ Note that each component should have a unique `name` property.
 const COMPONENT_NAMES = {
   Position: Symbol('Position'),  
   Velocity: Symbol('Velocity'),  
-  Health: Symbol('Health'),  
+  Health: Symbol('Health')
 };
 
 class Position extends Component {
@@ -36,7 +36,6 @@ class Health extends Component {
     super(COMPONENT_NAMES.Health);
     this.health = maxHealth;
     this.maxHealth = maxHealth;
-    this.y = y;
   }
   
   isDead() {
@@ -126,20 +125,20 @@ class MySystem extends System {
     // Code to handle being added to world. Remember to call `super`.
     
     world.entityAdded$([COMPONENT_NAMES.Position, COMPONENT_NAMES.Velocity])
-         .subscribe(entity => {
-            // This function is called whenever an entity with both 'position' and
-            // 'velocity' components is added to the world. It can also be called when
-            // a component is added to an entity; for example, when an entity with
-            // only 'position' has 'velocity' added to it.
-         });
+    .subscribe(entity => {
+      // This function is called whenever an entity with both 'position' and
+      // 'velocity' components is added to the world. It can also be called when
+      // a component is added to an entity; for example, when an entity with
+      // only 'position' has 'velocity' added to it.
+    });
     
     world.entityRemoved$([COMPONENT_NAMES.Position, COMPONENT_NAMES.Velocity])
-         .subscribe(entity => {
-            // This function is called whenever an entity with both 'position' and
-            // 'velocity' components is removed from the world. It can also be called 
-            // when a component is removed from an entity; for example, when an entity
-            // with both 'position' and 'velocity' has 'velocity' removed from it.
-         });
+      .subscribe(entity => {
+        // This function is called whenever an entity with both 'position' and
+        // 'velocity' components is removed from the world. It can also be called 
+        // when a component is removed from an entity; for example, when an entity
+        // with both 'position' and 'velocity' has 'velocity' removed from it.
+    });
   }
 }
 ```
