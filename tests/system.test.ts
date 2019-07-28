@@ -4,10 +4,10 @@ describe('System', () => {
 
   it('should call addedToWorld when system is added to world', function () {
 
-    const addedToWorld = System.prototype.addedToWorld = jest.fn();
+    const system = new System();
+    const addedToWorld = system.addedToWorld = jest.fn();
 
     const world = new World();
-    const system = new System();
     world.addSystem(system);
 
     expect(addedToWorld).toHaveBeenCalled();
@@ -15,13 +15,14 @@ describe('System', () => {
 
   it('should call removedFromWorld when system is removed from world', function () {
 
-    const removedFromWorld = System.prototype.removedFromWorld = jest.fn();
+    const system = new System();
+    const removedFromWorld = system.removedFromWorld = jest.fn();
 
     const world = new World();
-    const system = new System();
     world.addSystem(system);
 
     world.removeSystem(system);
+
     expect(removedFromWorld).toHaveBeenCalled();
   });
 
@@ -30,9 +31,15 @@ describe('System', () => {
     const system = new System();
 
     const world = new World();
+    expect(() => system.world).toThrow();
+
     world.addSystem(system);
 
-    // expect(system.world).toBeDefined();
-    // expect(system.world).toBe(world);
+    expect(system.world).toBeDefined();
+    expect(system.world).toBe(world);
+
+    world.removeSystem(system);
+
+    expect(() => system.world).toThrow();
   });
 });
