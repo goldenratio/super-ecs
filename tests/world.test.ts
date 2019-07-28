@@ -226,4 +226,81 @@ describe('World', () => {
     expect(cListener).toBe(false);
 
   });
+
+  it('should emit signal when entity is removed', function () {
+
+    const world = new World();
+
+    let aListener = false;
+    let bListener = false;
+
+    world.entityRemoved$([COMPONENT_NAMES.CompA])
+      .subscribe(() => {
+        aListener = true;
+      });
+
+    world.entityRemoved$([COMPONENT_NAMES.CompB])
+      .subscribe(() => {
+        bListener = true;
+      });
+
+    const entity = new Entity();
+    entity.addComponent(new Component(COMPONENT_NAMES.CompA));
+    world.addEntity(entity);
+
+    expect(aListener).toBe(false);
+    expect(bListener).toBe(false);
+
+    world.removeEntity(entity);
+
+    expect(aListener).toBe(true);
+    expect(bListener).toBe(false);
+
+  });
+
+  it('should emit signal when entity has component added', function () {
+
+    const world = new World();
+
+    let abListener = false;
+
+    world.entityAdded$([COMPONENT_NAMES.CompA, COMPONENT_NAMES.CompB])
+      .subscribe(() => {
+        abListener = true;
+      });
+
+    const entity = new Entity();
+    entity.addComponent(new Component(COMPONENT_NAMES.CompA));
+    world.addEntity(entity);
+
+    expect(abListener).toBe(false);
+
+    entity.addComponent(new Component(COMPONENT_NAMES.CompB));
+
+    expect(abListener).toBe(true);
+  });
+
+  it('should emit signal when entity has component removed', function () {
+
+    const world = new World();
+
+    let abListener = false;
+
+    world.entityRemoved$([COMPONENT_NAMES.CompA, COMPONENT_NAMES.CompB])
+      .subscribe(() => {
+        abListener = true;
+      });
+
+    const entity = new Entity();
+    entity.addComponent(new Component(COMPONENT_NAMES.CompA));
+    entity.addComponent(new Component(COMPONENT_NAMES.CompB));
+    world.addEntity(entity);
+
+    expect(abListener).toBe(false);
+
+    entity.removeComponent(COMPONENT_NAMES.CompB);
+
+    expect(abListener).toBe(true);
+
+  });
 });
