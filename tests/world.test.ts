@@ -164,4 +164,66 @@ describe('World', () => {
     ]).length).toBe(100);
 
   });
+
+  it('should emit signal when entity with one component is added', function () {
+
+    const world = new World();
+
+    let aListener = false;
+    let bListener = false;
+
+    world.entityAdded$([COMPONENT_NAMES.CompA])
+      .subscribe(() => {
+        aListener = true;
+      });
+
+    world.entityAdded$([COMPONENT_NAMES.CompB])
+      .subscribe(() => {
+        bListener = true
+      });
+
+    const entity = new Entity();
+    entity.addComponent(new Component(COMPONENT_NAMES.CompA));
+
+    world.addEntity(entity);
+
+    expect(aListener).toBe(true);
+    expect(bListener).toBe(false);
+
+  });
+
+  it('should emit signal when entity with two components is added', function () {
+
+    const world = new World();
+
+    let aListener = false;
+    let abListener = false;
+    let cListener = false;
+
+    world.entityAdded$([COMPONENT_NAMES.CompA])
+      .subscribe(() => {
+        aListener = true;
+      });
+
+    world.entityAdded$([COMPONENT_NAMES.CompA, COMPONENT_NAMES.CompB])
+      .subscribe(() => {
+        abListener = true;
+      });
+
+    world.entityAdded$([COMPONENT_NAMES.CompC])
+      .subscribe(() => {
+        cListener = true;
+      });
+
+    const entity = new Entity();
+    entity.addComponent(new Component(COMPONENT_NAMES.CompA));
+    entity.addComponent(new Component(COMPONENT_NAMES.CompB));
+
+    world.addEntity(entity);
+
+    expect(aListener).toBe(true);
+    expect(abListener).toBe(true);
+    expect(cListener).toBe(false);
+
+  });
 });
