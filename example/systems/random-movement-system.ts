@@ -22,8 +22,8 @@ export class RandomMovementSystem extends System {
       const transformComponent = entity.getComponent<TransformComponent>(TransformComponent.CNAME);
       if (transformComponent) {
         const { speed, direction } = transformComponent;
-        transformComponent.x += speed * direction;
-        transformComponent.y += speed * direction;
+        transformComponent.x += speed * direction * delta;
+        transformComponent.y += speed * direction * delta;
 
         const stageWidth = this._stageWidth;
         const stageHeight = this._stageHeight;
