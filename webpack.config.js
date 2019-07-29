@@ -1,6 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   target: 'web',
@@ -48,7 +49,10 @@ module.exports = {
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       title: 'super-ecs sandbox'
-    })
+    }),
+    new CopyPlugin([
+      { from: './example/assets', to: './assets' }
+    ])
   ],
   output: {
     filename: '[name].bundle.js',
