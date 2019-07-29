@@ -25,5 +25,18 @@ export class SceneSystem extends System {
           this._container.addChild(sprite);
         }
       });
+
+    world.entityRemoved$([SpriteComponent.CNAME])
+      .subscribe(entity => {
+        const spriteComponent = entity.getComponent<SpriteComponent>(SpriteComponent.CNAME);
+        if (!spriteComponent) {
+          return;
+        }
+
+        const { sprite } = spriteComponent;
+        if (sprite) {
+          this._container.removeChild(sprite);
+        }
+      });
   }
 }
