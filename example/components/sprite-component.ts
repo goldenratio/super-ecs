@@ -1,15 +1,12 @@
 import { Component } from '../../src';
+import { COMPONENT_NAMES } from './types';
 
 export class SpriteComponent extends Component {
 
-  static CNAME = Symbol('SpriteComponent');
+  public sprite: PIXI.Sprite;
 
-  public sprite?: PIXI.Sprite;
-
-  constructor(textureName?: string) {
-    super(SpriteComponent.CNAME);
-    if (textureName) {
-      this.sprite = new PIXI.Sprite(PIXI.Texture.fromFrame(textureName));
-    }
+  constructor(textureName: string) {
+    super(COMPONENT_NAMES.SpriteComponent);
+    this.sprite = new PIXI.Sprite(PIXI.Texture.fromFrame(textureName));
   }
 }

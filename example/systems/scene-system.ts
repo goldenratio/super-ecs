@@ -1,5 +1,6 @@
 import { System, World } from '../../src';
 import { SpriteComponent } from '../components/sprite-component';
+import { COMPONENT_NAMES } from '../components/types';
 
 export class SceneSystem extends System {
 
@@ -13,9 +14,9 @@ export class SceneSystem extends System {
   addedToWorld(world: World): void {
     super.addedToWorld(world);
 
-    world.entityAdded$([SpriteComponent.CNAME])
+    world.entityAdded$([COMPONENT_NAMES.SpriteComponent])
       .subscribe(entity => {
-        const spriteComponent = entity.getComponent<SpriteComponent>(SpriteComponent.CNAME);
+        const spriteComponent = entity.getComponent<SpriteComponent>(COMPONENT_NAMES.SpriteComponent);
         if (!spriteComponent) {
           return;
         }
@@ -26,9 +27,9 @@ export class SceneSystem extends System {
         }
       });
 
-    world.entityRemoved$([SpriteComponent.CNAME])
+    world.entityRemoved$([COMPONENT_NAMES.SpriteComponent])
       .subscribe(entity => {
-        const spriteComponent = entity.getComponent<SpriteComponent>(SpriteComponent.CNAME);
+        const spriteComponent = entity.getComponent<SpriteComponent>(COMPONENT_NAMES.SpriteComponent);
         if (!spriteComponent) {
           return;
         }

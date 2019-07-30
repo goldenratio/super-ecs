@@ -1,10 +1,11 @@
 import 'pixi.js';
 import { Entity, World } from '../src';
-import { SpriteTransformSystem } from './systems/sprite-transform-system';
-import { TransformComponent } from './components/transform-component';
+import { PositionSystem } from './systems/position-system';
+import { PositionComponent } from './components/position-component';
 import { SpriteComponent } from './components/sprite-component';
 import { SceneSystem } from './systems/scene-system';
 import { RandomMovementSystem } from './systems/random-movement-system';
+import { RandomMovementComponent } from './components/random-movement-component';
 
 const app = new PIXI.Application({
   width: 600,
@@ -30,7 +31,7 @@ function init(): void {
   // systems
   world
     .addSystem(new SceneSystem(container))
-    .addSystem(new SpriteTransformSystem())
+    .addSystem(new PositionSystem())
     .addSystem(new RandomMovementSystem());
 
   // entities
@@ -53,7 +54,8 @@ function createHeroEntity(): Entity {
 
   const hero = new Entity();
   hero
-    .addComponent(new TransformComponent({ x, y, direction }))
+    .addComponent(new PositionComponent({ x, y }))
+    .addComponent(new RandomMovementComponent({ direction }))
     .addComponent(new SpriteComponent(texture));
 
   return hero;
