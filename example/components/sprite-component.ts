@@ -1,12 +1,13 @@
-import { Component } from '../../src';
+import { Component, ComponentProps } from '../../src';
 import { COMPONENT_NAMES } from './types';
 
-export class SpriteComponent extends Component {
+export class SpriteComponent implements Component {
 
+  public name: symbol = COMPONENT_NAMES.SpriteComponent;
   public sprite: PIXI.Sprite;
 
-  constructor(textureName: string) {
-    super(COMPONENT_NAMES.SpriteComponent);
-    this.sprite = new PIXI.Sprite(PIXI.Texture.fromFrame(textureName));
+  constructor(props?: ComponentProps<SpriteComponent>) {
+    const { sprite = new PIXI.Sprite() } = props || {};
+    this.sprite = sprite;
   }
 }

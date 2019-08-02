@@ -1,5 +1,12 @@
 import { Component, Entity, World } from '../src';
 
+class DummyComponent implements Component {
+  public name: symbol;
+  constructor(name: symbol) {
+    this.name = name;
+  }
+}
+
 const COMPONENT_NAMES = {
   CompA: Symbol('CompA'),
   CompB: Symbol('CompB'),
@@ -8,9 +15,9 @@ const COMPONENT_NAMES = {
 };
 
 function createEntityA() {
-  const compA = new Component(COMPONENT_NAMES.CompA);
-  const compB = new Component(COMPONENT_NAMES.CompB);
-  const compC = new Component(COMPONENT_NAMES.CompC);
+  const compA = new DummyComponent(COMPONENT_NAMES.CompA);
+  const compB = new DummyComponent(COMPONENT_NAMES.CompB);
+  const compC = new DummyComponent(COMPONENT_NAMES.CompC);
 
   const entity = new Entity();
   entity
@@ -21,8 +28,8 @@ function createEntityA() {
 }
 
 function createEntityB() {
-  const compA = new Component(COMPONENT_NAMES.CompA);
-  const compB = new Component(COMPONENT_NAMES.CompB);
+  const compA = new DummyComponent(COMPONENT_NAMES.CompA);
+  const compB = new DummyComponent(COMPONENT_NAMES.CompB);
 
   const entity = new Entity();
   entity
@@ -32,8 +39,8 @@ function createEntityB() {
 }
 
 function createEntityC() {
-  const compA = new Component(COMPONENT_NAMES.CompA);
-  const compC = new Component(COMPONENT_NAMES.CompC);
+  const compA = new DummyComponent(COMPONENT_NAMES.CompA);
+  const compC = new DummyComponent(COMPONENT_NAMES.CompC);
 
   const entity = new Entity();
   entity
@@ -117,7 +124,7 @@ describe('World', () => {
       COMPONENT_NAMES.CompC,
     ]).length).toBe(0);
 
-    const compC = new Component(COMPONENT_NAMES.CompC);
+    const compC = new DummyComponent(COMPONENT_NAMES.CompC);
     entity.addComponent(compC);
 
     expect(world.getEntities([
@@ -183,7 +190,7 @@ describe('World', () => {
       });
 
     const entity = new Entity();
-    entity.addComponent(new Component(COMPONENT_NAMES.CompA));
+    entity.addComponent(new DummyComponent(COMPONENT_NAMES.CompA));
 
     world.addEntity(entity);
 
@@ -216,8 +223,8 @@ describe('World', () => {
       });
 
     const entity = new Entity();
-    entity.addComponent(new Component(COMPONENT_NAMES.CompA));
-    entity.addComponent(new Component(COMPONENT_NAMES.CompB));
+    entity.addComponent(new DummyComponent(COMPONENT_NAMES.CompA));
+    entity.addComponent(new DummyComponent(COMPONENT_NAMES.CompB));
 
     world.addEntity(entity);
 
@@ -245,7 +252,7 @@ describe('World', () => {
       });
 
     const entity = new Entity();
-    entity.addComponent(new Component(COMPONENT_NAMES.CompA));
+    entity.addComponent(new DummyComponent(COMPONENT_NAMES.CompA));
     world.addEntity(entity);
 
     expect(aListener).toBe(false);
@@ -270,12 +277,12 @@ describe('World', () => {
       });
 
     const entity = new Entity();
-    entity.addComponent(new Component(COMPONENT_NAMES.CompA));
+    entity.addComponent(new DummyComponent(COMPONENT_NAMES.CompA));
     world.addEntity(entity);
 
     expect(abListener).toBe(false);
 
-    entity.addComponent(new Component(COMPONENT_NAMES.CompB));
+    entity.addComponent(new DummyComponent(COMPONENT_NAMES.CompB));
 
     expect(abListener).toBe(true);
   });
@@ -292,8 +299,8 @@ describe('World', () => {
       });
 
     const entity = new Entity();
-    entity.addComponent(new Component(COMPONENT_NAMES.CompA));
-    entity.addComponent(new Component(COMPONENT_NAMES.CompB));
+    entity.addComponent(new DummyComponent(COMPONENT_NAMES.CompA));
+    entity.addComponent(new DummyComponent(COMPONENT_NAMES.CompB));
     world.addEntity(entity);
 
     expect(abListener).toBe(false);

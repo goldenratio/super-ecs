@@ -3,3 +3,4 @@ export const COMPONENT_NAMES = {
   RandomMovementComponent: Symbol('RandomMovementComponent'),
   SpriteComponent: Symbol('SpriteComponent')
 };
+

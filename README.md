@@ -11,7 +11,7 @@ Port of [CES.js](https://github.com/qiao/ces.js) with some changes,
 
 https://www.npmjs.com/package/super-ecs
 
-To define a new component, simply extend `Component`. 
+To define a new component, simply implement `Component`. 
 Note that each component should have a unique `name` property.
 
 ```js

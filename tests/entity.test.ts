@@ -4,6 +4,13 @@ const COMPONENT_A = Symbol('COMPONENT_A');
 const COMPONENT_B = Symbol('COMPONENT_B');
 const COMPONENT_C = Symbol('COMPONENT_C');
 
+class DummyComponent implements Component {
+  public name: symbol;
+  constructor(name: symbol) {
+    this.name = name;
+  }
+}
+
 describe('Entity', () => {
   it('should have unique id', () => {
     const a = new Entity();
@@ -14,9 +21,9 @@ describe('Entity', () => {
   });
 
   it('should return true when checking added components', function () {
-    const CompA = new Component(COMPONENT_A);
-    const CompB = new Component(COMPONENT_B);
-    const CompC = new Component(COMPONENT_C);
+    const CompA = new DummyComponent(COMPONENT_A);
+    const CompB = new DummyComponent(COMPONENT_B);
+    const CompC = new DummyComponent(COMPONENT_C);
 
     const entity = new Entity();
     entity
@@ -30,9 +37,9 @@ describe('Entity', () => {
   });
 
   it('should return false when checking removed components', function () {
-    const CompA = new Component(COMPONENT_A);
-    const CompB = new Component(COMPONENT_B);
-    const CompC = new Component(COMPONENT_C);
+    const CompA = new DummyComponent(COMPONENT_A);
+    const CompB = new DummyComponent(COMPONENT_B);
+    const CompC = new DummyComponent(COMPONENT_C);
 
     const entity = new Entity();
     entity
@@ -50,9 +57,9 @@ describe('Entity', () => {
   });
 
   it('should return the correct component', function () {
-    const CompA = new Component(COMPONENT_A);
-    const CompB = new Component(COMPONENT_B);
-    const CompC = new Component(COMPONENT_C);
+    const CompA = new DummyComponent(COMPONENT_A);
+    const CompB = new DummyComponent(COMPONENT_B);
+    const CompC = new DummyComponent(COMPONENT_C);
 
     const entity = new Entity();
     entity
@@ -68,9 +75,9 @@ describe('Entity', () => {
 
   it('should emit Observables when adding components', function () {
 
-    const CompA = new Component(COMPONENT_A);
-    const CompB = new Component(COMPONENT_B);
-    const CompC = new Component(COMPONENT_C);
+    const CompA = new DummyComponent(COMPONENT_A);
+    const CompB = new DummyComponent(COMPONENT_B);
+    const CompC = new DummyComponent(COMPONENT_C);
 
     let count = 0;
     const entity = new Entity();
@@ -90,9 +97,9 @@ describe('Entity', () => {
 
   it('should emit signals when removing components', function () {
 
-    const CompA = new Component(COMPONENT_A);
-    const CompB = new Component(COMPONENT_B);
-    const CompC = new Component(COMPONENT_C);
+    const CompA = new DummyComponent(COMPONENT_A);
+    const CompB = new DummyComponent(COMPONENT_B);
+    const CompC = new DummyComponent(COMPONENT_C);
 
     let count = 0;
     const entity = new Entity();

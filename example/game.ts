@@ -50,13 +50,15 @@ function createHeroEntity(): Entity {
   const direction = Math.floor(Math.random() * 10) > 5 ? -1 : 1;
   const x = Math.floor(Math.random() * 600);
   const y = Math.floor(Math.random() * 400);
-  const texture = Math.floor(Math.random() * 10) > 5 ? 'p1' : 'p2';
+  const textureName = Math.floor(Math.random() * 10) > 5 ? 'p1' : 'p2';
 
   const hero = new Entity();
   hero
     .addComponent(new PositionComponent({ x, y }))
     .addComponent(new RandomMovementComponent({ direction }))
-    .addComponent(new SpriteComponent(texture));
+    .addComponent(new SpriteComponent({
+      sprite: new PIXI.Sprite(PIXI.Texture.fromFrame(textureName))
+    }));
 
   return hero;
 }

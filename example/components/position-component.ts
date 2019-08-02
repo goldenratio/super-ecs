@@ -1,18 +1,13 @@
-import { Component } from '../../src';
+import { Component, ComponentProps } from '../../src';
 import { COMPONENT_NAMES } from './types';
 
-interface Props {
-  readonly x?: number;
-  readonly y?: number;
-}
+export class PositionComponent implements Component {
 
-export class PositionComponent extends Component {
-
+  public name: symbol = COMPONENT_NAMES.PositionComponent;
   public x: number;
   public y: number;
 
-  constructor(props?: Props) {
-    super(COMPONENT_NAMES.PositionComponent);
+  constructor(props?: ComponentProps<PositionComponent>) {
     const { x = 0, y = 0 } = props || {};
     this.x = x;
     this.y = y;

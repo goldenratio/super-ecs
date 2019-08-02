@@ -1034,17 +1034,6 @@ var Entity = /** @class */ (function () {
 }());
 
 /**
- * The components is the container of some properties that
- * the entity possesses. It may also contain some methods.
- */
-var Component = /** @class */ (function () {
-    function Component(name) {
-        this.name = name;
-    }
-    return Component;
-}());
-
-/**
  * The system is responsible for updating the entities.
  */
 var System = /** @class */ (function () {
@@ -1461,7 +1450,6 @@ var World = /** @class */ (function () {
     return World;
 }());
 
-exports.Component = Component;
 exports.Entity = Entity;
 exports.System = System;
 exports.World = World;
