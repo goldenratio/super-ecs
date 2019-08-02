@@ -21,25 +21,25 @@ const COMPONENT_NAMES = {
   Health: Symbol('Health')
 };
 
-class Position extends Component {
+class Position {
+  name = COMPONENT_NAMES.Position;
   constructor({ x = 0, y = 0 }) {
-    super(COMPONENT_NAMES.Position);
     this.x = x;
     this.y = y;
   }
 }
 
-class Velocity extends Component {
+class Velocity {
+  name = COMPONENT_NAMES.Velocity;
   constructor({ x = 0, y = 0 }) {
-    super(COMPONENT_NAMES.Velocity);
     this.x = x;
     this.y = y;
   }
 }
 
-class Health extends Component {
+class Health {
+  name = COMPONENT_NAMES.Health;
   constructor({ maxHealth = 100 }) {
-    super(COMPONENT_NAMES.Health);
     this.health = maxHealth;
     this.maxHealth = maxHealth;
   }
