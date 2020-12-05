@@ -1,5 +1,6 @@
 .idea
 .rpt2_cache
+.npmrc
 node_modules
 coverage
 
