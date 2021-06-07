@@ -22,5 +22,5 @@ export declare class System {
     /**
      * Reference to the world
      */
-    readonly world: World;
+    get world(): World;
 }

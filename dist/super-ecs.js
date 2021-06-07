@@ -3,32 +3,40 @@
 Object.defineProperty(exports, '__esModule', { value: true });
 
 /*! *****************************************************************************
-Copyright (c) Microsoft Corporation. All rights reserved.
-Licensed under the Apache License, Version 2.0 (the "License"); you may not use
-this file except in compliance with the License. You may obtain a copy of the
-License at http://www.apache.org/licenses/LICENSE-2.0
+Copyright (c) Microsoft Corporation.
 
-THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
-WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
-MERCHANTABLITY OR NON-INFRINGEMENT.
+Permission to use, copy, modify, and/or distribute this software for any
+purpose with or without fee is hereby granted.
 
-See the Apache Version 2.0 License for specific language governing permissions
-and limitations under the License.
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
+AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+PERFORMANCE OF THIS SOFTWARE.
 ***************************************************************************** */
 /* global Reflect, Promise */
 
 var extendStatics = function(d, b) {
     extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
     return extendStatics(d, b);
 };
 
 function __extends(d, b) {
+    if (typeof b !== "function" && b !== null)
+        throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
     extendStatics(d, b);
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+}
+
+function __spreadArray(to, from) {
+    for (var i = 0, il = from.length, j = to.length; i < il; i++, j++)
+        to[j] = from[i];
+    return to;
 }
 
 /** PURE_IMPORTS_START  PURE_IMPORTS_END */
@@ -606,7 +614,7 @@ var Observable = /*@__PURE__*/ (function () {
 }());
 function getPromiseCtor(promiseCtor) {
     if (!promiseCtor) {
-        promiseCtor =  Promise;
+        promiseCtor = Promise;
     }
     if (!promiseCtor) {
         throw new Error('no Promise impl found');
@@ -960,6 +968,76 @@ function subscribeToResult(outerSubscriber, result, outerValue, outerIndex, dest
     return subscribeTo(result)(destination);
 }
 
+/** PURE_IMPORTS_START tslib,_OuterSubscriber,_util_subscribeToResult PURE_IMPORTS_END */
+function takeUntil(notifier) {
+    return function (source) { return source.lift(new TakeUntilOperator(notifier)); };
+}
+var TakeUntilOperator = /*@__PURE__*/ (function () {
+    function TakeUntilOperator(notifier) {
+        this.notifier = notifier;
+    }
+    TakeUntilOperator.prototype.call = function (subscriber, source) {
+        var takeUntilSubscriber = new TakeUntilSubscriber(subscriber);
+        var notifierSubscription = subscribeToResult(takeUntilSubscriber, this.notifier);
+        if (notifierSubscription && !takeUntilSubscriber.seenValue) {
+            takeUntilSubscriber.add(notifierSubscription);
+            return source.subscribe(takeUntilSubscriber);
+        }
+        return takeUntilSubscriber;
+    };
+    return TakeUntilOperator;
+}());
+var TakeUntilSubscriber = /*@__PURE__*/ (function (_super) {
+    __extends(TakeUntilSubscriber, _super);
+    function TakeUntilSubscriber(destination) {
+        var _this = _super.call(this, destination) || this;
+        _this.seenValue = false;
+        return _this;
+    }
+    TakeUntilSubscriber.prototype.notifyNext = function (outerValue, innerValue, outerIndex, innerIndex, innerSub) {
+        this.seenValue = true;
+        this.complete();
+    };
+    TakeUntilSubscriber.prototype.notifyComplete = function () {
+    };
+    return TakeUntilSubscriber;
+}(OuterSubscriber));
+
+var DisposeBag = /** @class */ (function () {
+    function DisposeBag() {
+        this._dispose$ = new Subject();
+        this._list = new Set();
+        this._isDisposed = false;
+    }
+    DisposeBag.prototype.add = function (item) {
+        if (this._isDisposed) {
+            throw new Error('disposeBag already disposed, create a new disposeBag');
+        }
+        this._list.add(function () {
+            if (typeof item === 'function') {
+                item();
+            }
+            else {
+                item.dispose();
+            }
+        });
+    };
+    DisposeBag.prototype.completable$ = function (item) {
+        if (this._isDisposed) {
+            throw new Error('disposeBag already disposed, create a new disposeBag');
+        }
+        return item.pipe(takeUntil(this._dispose$));
+    };
+    DisposeBag.prototype.dispose = function () {
+        this._isDisposed = true;
+        this._dispose$.next();
+        this._dispose$.complete();
+        this._list.forEach(function (cb) { return cb(); });
+        this._list.clear();
+    };
+    return DisposeBag;
+}());
+
 var entityId = 0;
 /**
  * The entity is the container of components.
@@ -1017,7 +1095,7 @@ var Entity = /** @class */ (function () {
         get: function () {
             return this._componentAddedSubject$;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(Entity.prototype, "componentRemoved$", {
@@ -1027,7 +1105,7 @@ var Entity = /** @class */ (function () {
         get: function () {
             return this._componentRemovedSubject$;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     return Entity;
@@ -1070,46 +1148,11 @@ var System = /** @class */ (function () {
             }
             return this._world;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     return System;
 }());
-
-/** PURE_IMPORTS_START tslib,_OuterSubscriber,_util_subscribeToResult PURE_IMPORTS_END */
-function takeUntil(notifier) {
-    return function (source) { return source.lift(new TakeUntilOperator(notifier)); };
-}
-var TakeUntilOperator = /*@__PURE__*/ (function () {
-    function TakeUntilOperator(notifier) {
-        this.notifier = notifier;
-    }
-    TakeUntilOperator.prototype.call = function (subscriber, source) {
-        var takeUntilSubscriber = new TakeUntilSubscriber(subscriber);
-        var notifierSubscription = subscribeToResult(takeUntilSubscriber, this.notifier);
-        if (notifierSubscription && !takeUntilSubscriber.seenValue) {
-            takeUntilSubscriber.add(notifierSubscription);
-            return source.subscribe(takeUntilSubscriber);
-        }
-        return takeUntilSubscriber;
-    };
-    return TakeUntilOperator;
-}());
-var TakeUntilSubscriber = /*@__PURE__*/ (function (_super) {
-    __extends(TakeUntilSubscriber, _super);
-    function TakeUntilSubscriber(destination) {
-        var _this = _super.call(this, destination) || this;
-        _this.seenValue = false;
-        return _this;
-    }
-    TakeUntilSubscriber.prototype.notifyNext = function (outerValue, innerValue, outerIndex, innerIndex, innerSub) {
-        this.seenValue = true;
-        this.complete();
-    };
-    TakeUntilSubscriber.prototype.notifyComplete = function () {
-    };
-    return TakeUntilSubscriber;
-}(OuterSubscriber));
 
 var EntityNode = /** @class */ (function () {
     function EntityNode(entity) {
@@ -1259,14 +1302,14 @@ var Family = /** @class */ (function () {
         get: function () {
             return this._entityAddedSubject$;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(Family.prototype, "entityRemoved$", {
         get: function () {
             return this._entityRemovedSubject$;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Family.prototype.matchEntity = function (entity) {
@@ -1336,12 +1379,8 @@ var World = /** @class */ (function () {
         // update the entity-family relationship whenever components are
         // added to or removed from the entities
         var componentAdded$ = entity.componentAdded$, componentRemoved$ = entity.componentRemoved$;
-        componentAdded$
-            .pipe(takeUntil(dispose$))
-            .subscribe(function (component) { return _this.onComponentAdded(entity, component); });
-        componentRemoved$
-            .pipe(takeUntil(dispose$))
-            .subscribe(function (component) { return _this.onComponentRemoved(entity, component); });
+        componentAdded$.pipe(takeUntil(dispose$)).subscribe(function (component) { return _this.onComponentAdded(entity, component); });
+        componentRemoved$.pipe(takeUntil(dispose$)).subscribe(function (component) { return _this.onComponentRemoved(entity, component); });
         this._entities.add(entity);
         return this;
     };
@@ -1364,9 +1403,7 @@ var World = /** @class */ (function () {
      */
     World.prototype.removeAllEntities = function () {
         var _this = this;
-        this._entities
-            .toArray()
-            .forEach(function (entity) { return _this.removeEntity(entity); });
+        this._entities.toArray().forEach(function (entity) { return _this.removeEntity(entity); });
         return this;
     };
     /**
@@ -1432,7 +1469,7 @@ var World = /** @class */ (function () {
         if (families.has(familyId)) {
             return;
         }
-        var family = new Family(componentNames.slice());
+        var family = new Family(__spreadArray([], componentNames));
         families.set(familyId, family);
         for (var node = this._entities.head; node; node = node.next) {
             var family_1 = families.get(familyId);
@@ -1450,6 +1487,7 @@ var World = /** @class */ (function () {
     return World;
 }());
 
+exports.DisposeBag = DisposeBag;
 exports.Entity = Entity;
 exports.System = System;
 exports.World = World;

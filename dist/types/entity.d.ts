@@ -35,9 +35,9 @@ export declare class Entity {
     /**
      * Stream triggered when a component is added
      */
-    readonly componentAdded$: Observable<Component>;
+    get componentAdded$(): Observable<Component>;
     /**
      * Stream triggered when a component is removed
      */
-    readonly componentRemoved$: Observable<Component>;
+    get componentRemoved$(): Observable<Component>;
 }

@@ -23,7 +23,7 @@ export declare class Family {
     removeEntity(entity: Entity): void;
     onComponentAdded(entity: Entity, component: Component): void;
     onComponentRemoved(entity: Entity, component: Component): void;
-    readonly entityAdded$: Observable<Entity>;
-    readonly entityRemoved$: Observable<Entity>;
+    get entityAdded$(): Observable<Entity>;
+    get entityRemoved$(): Observable<Entity>;
     private matchEntity;
 }
