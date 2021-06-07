@@ -7,7 +7,8 @@
     "clean": "rimraf dist",
     "build": "npm run clean && rollup -c rollup.config.js",
     "test": "jest --env=node --colors",
-    "fix-code-style": "prettier --write src/**/*.ts"
+    "fix-code-style": "prettier --write src/**/*.ts",
+    "generate-docs": "typedoc --theme minimal --excludePrivate --excludeProtected"
   },
   "main": "dist/super-ecs.js",
   "module": "dist/super-ecs.es.js",
@@ -43,6 +44,7 @@
     "rollup-plugin-typescript2": "^0.21.1",
     "ts-jest": "^24.0.2",
     "ts-loader": "^6.0.4",
+    "typedoc": "^0.20.36",
     "typescript": "^3.5.1"
   },
   "dependencies": {
