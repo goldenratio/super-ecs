@@ -1093,9 +1093,10 @@
         Object.defineProperty(Entity.prototype, "componentAdded$", {
             /**
              * Stream triggered when a component is added
+             * Note: make sure to unsubscribe. If needed, use `DisposeBag` util
              */
             get: function () {
-                return this._componentAddedSubject$;
+                return this._componentAddedSubject$.asObservable();
             },
             enumerable: false,
             configurable: true
@@ -1103,9 +1104,10 @@
         Object.defineProperty(Entity.prototype, "componentRemoved$", {
             /**
              * Stream triggered when a component is removed
+             * Note: make sure to unsubscribe. If needed, use `DisposeBag` util
              */
             get: function () {
-                return this._componentRemovedSubject$;
+                return this._componentRemovedSubject$.asObservable();
             },
             enumerable: false,
             configurable: true
@@ -1301,15 +1303,21 @@
             }
         };
         Object.defineProperty(Family.prototype, "entityAdded$", {
+            /**
+             * Note: make sure to unsubscribe. If needed, use `DisposeBag` util
+             */
             get: function () {
-                return this._entityAddedSubject$;
+                return this._entityAddedSubject$.asObservable();
             },
             enumerable: false,
             configurable: true
         });
         Object.defineProperty(Family.prototype, "entityRemoved$", {
+            /**
+             * Note: make sure to unsubscribe. If needed, use `DisposeBag` util
+             */
             get: function () {
-                return this._entityRemovedSubject$;
+                return this._entityRemovedSubject$.asObservable();
             },
             enumerable: false,
             configurable: true
@@ -1333,7 +1341,7 @@
             this._entities = new EntityList();
             this._families = new Map();
             this._disposeEntityMap = new Map();
-            //
+            // empty
         }
         /**
          * Add a system to this world.
@@ -1436,6 +1444,7 @@
          * Returns the Observable for entities added with the specified components. The
          * Observable is also emitted when a component is added to an entity causing it
          * match the specified component names.
+         * Note: make sure to unsubscribe. If needed, use `DisposeBag` util
          * @param componentNames
          */
         World.prototype.entityAdded$ = function (componentNames) {
@@ -1451,6 +1460,7 @@
          * Returns the Observable for entities removed with the specified components.
          * The Observable is also emitted when a component is removed from an entity
          * causing it to no longer match the specified component names.
+         * Note: make sure to unsubscribe. If needed, use `DisposeBag` util
          * @param componentNames
          */
         World.prototype.entityRemoved$ = function (componentNames) {

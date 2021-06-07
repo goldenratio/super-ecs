@@ -66,15 +66,17 @@ export class Entity {
 
 	/**
 	 * Stream triggered when a component is added
+	 * Note: make sure to unsubscribe. If needed, use `DisposeBag` util
 	 */
 	get componentAdded$(): Observable<Component> {
-		return this._componentAddedSubject$;
+		return this._componentAddedSubject$.asObservable();
 	}
 
 	/**
 	 * Stream triggered when a component is removed
+	 * Note: make sure to unsubscribe. If needed, use `DisposeBag` util
 	 */
 	get componentRemoved$(): Observable<Component> {
-		return this._componentRemovedSubject$;
+		return this._componentRemovedSubject$.asObservable();
 	}
 }

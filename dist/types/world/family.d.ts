@@ -23,7 +23,13 @@ export declare class Family {
     removeEntity(entity: Entity): void;
     onComponentAdded(entity: Entity, component: Component): void;
     onComponentRemoved(entity: Entity, component: Component): void;
+    /**
+     * Note: make sure to unsubscribe. If needed, use `DisposeBag` util
+     */
     get entityAdded$(): Observable<Entity>;
+    /**
+     * Note: make sure to unsubscribe. If needed, use `DisposeBag` util
+     */
     get entityRemoved$(): Observable<Entity>;
     private matchEntity;
 }

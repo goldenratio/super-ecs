@@ -66,12 +66,18 @@ export class Family {
 		}
 	}
 
+	/**
+	 * Note: make sure to unsubscribe. If needed, use `DisposeBag` util
+	 */
 	get entityAdded$(): Observable<Entity> {
-		return this._entityAddedSubject$;
+		return this._entityAddedSubject$.asObservable();
 	}
 
+	/**
+	 * Note: make sure to unsubscribe. If needed, use `DisposeBag` util
+	 */
 	get entityRemoved$(): Observable<Entity> {
-		return this._entityRemovedSubject$;
+		return this._entityRemovedSubject$.asObservable();
 	}
 
 	private matchEntity(entity: Entity): boolean {

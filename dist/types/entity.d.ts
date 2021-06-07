@@ -34,10 +34,12 @@ export declare class Entity {
     removeComponent(componentName: symbol): Entity;
     /**
      * Stream triggered when a component is added
+     * Note: make sure to unsubscribe. If needed, use `DisposeBag` util
      */
     get componentAdded$(): Observable<Component>;
     /**
      * Stream triggered when a component is removed
+     * Note: make sure to unsubscribe. If needed, use `DisposeBag` util
      */
     get componentRemoved$(): Observable<Component>;
 }

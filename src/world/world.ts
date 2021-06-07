@@ -16,7 +16,7 @@ export class World {
 	private readonly _disposeEntityMap = new Map<Entity, Subject<void>>();
 
 	constructor() {
-		//
+		// empty
 	}
 
 	/**
@@ -134,6 +134,7 @@ export class World {
 	 * Returns the Observable for entities added with the specified components. The
 	 * Observable is also emitted when a component is added to an entity causing it
 	 * match the specified component names.
+	 * Note: make sure to unsubscribe. If needed, use `DisposeBag` util
 	 * @param componentNames
 	 */
 	entityAdded$(componentNames: ReadonlyArray<symbol>): Observable<Entity> {
@@ -152,6 +153,7 @@ export class World {
 	 * Returns the Observable for entities removed with the specified components.
 	 * The Observable is also emitted when a component is removed from an entity
 	 * causing it to no longer match the specified component names.
+	 * Note: make sure to unsubscribe. If needed, use `DisposeBag` util
 	 * @param componentNames
 	 */
 	entityRemoved$(componentNames: ReadonlyArray<symbol>): Observable<Entity> {

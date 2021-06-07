@@ -125,15 +125,19 @@ specific entities and handle the Observable accordingly:
 
 ```js
 class MySystem extends System {
-  private _disposeBag = new DisposeBag();
 
-  dispose(): void {
-    this._disposeBag.dispose();
+  removedFromWorld(world) {
+    super.removedFromWorld(world);
+    if (this._disposeBag) {
+      this._disposeBag.dispose();
+    }
   }
 
   addedToWorld(world) {
     super.addedToWorld(world);
     // Code to handle being added to world. Remember to call `super`.
+
+    this._disposeBag = new DisposeBag();
 
     this._disposeBag.completable$(world.entityAdded$([COMPONENT_NAMES.Position, COMPONENT_NAMES.Velocity]))
       .subscribe(entity => {
