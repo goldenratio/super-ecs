@@ -1,6 +1,6 @@
 {
   "name": "super-ecs",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "Entity Component System library",
   "author": "Karthik VJ",
   "scripts": {
