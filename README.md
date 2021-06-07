@@ -3,6 +3,7 @@ Entity Component System library for JavaScript/TypeScript games.
 
 - **API Docs:** https://goldenratio.github.io/super-ecs/
 - **Example Repo:** https://github.com/goldenratio/super-ecs-example
+- **Example Repo (Vanilla JS):** https://github.com/goldenratio/super-ecs-vanilla-js-example
 
 ## Basic Usage
 
