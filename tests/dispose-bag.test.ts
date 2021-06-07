@@ -1,6 +1,6 @@
-import { Observable, Subscriber } from 'rxjs';
+import { Observable } from 'rxjs';
 
-import { Disposable, DisposeBag } from './src/utils/dispose-bag';
+import { Disposable, DisposeBag } from './../src/utils/dispose-bag';
 
 describe('DisposeBag Test', () => {
   it('should dispose DisposeCallback or Disposable', () => {
@@ -44,13 +44,5 @@ describe('DisposeBag Test', () => {
     const disposeBag = new DisposeBag();
     disposeBag.dispose();
     expect(() => disposeBag.completable$(obs$)).toThrowError();
-  });
-
-  it('should be current payload with toPromise', async () => {
-    const obs$ = Observable.create((observer: Subscriber<boolean>) => observer.next(true));
-    let payload: unknown = false;
-    const disposeBag = new DisposeBag();
-    await disposeBag.toPromise(obs$).then(value => (payload = value));
-    expect(payload).toBe(true);
   });
 });
