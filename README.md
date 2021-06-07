@@ -123,12 +123,17 @@ specific entities and handle the Observable accordingly:
 
 ```js
 class MySystem extends System {
+  private _disposeBag = new DisposeBag();
+
+  dispose(): void {
+    this._disposeBag.dispose();
+  }
 
   addedToWorld(world) {
     super.addedToWorld(world);
     // Code to handle being added to world. Remember to call `super`.
 
-    world.entityAdded$([COMPONENT_NAMES.Position, COMPONENT_NAMES.Velocity])
+    this._disposeBag.completable$(world.entityAdded$([COMPONENT_NAMES.Position, COMPONENT_NAMES.Velocity]))
       .subscribe(entity => {
         // This function is called whenever an entity with both 'position' and
         // 'velocity' components is added to the world. It can also be called when
@@ -136,7 +141,7 @@ class MySystem extends System {
         // only 'position' has 'velocity' added to it.
       });
 
-    world.entityRemoved$([COMPONENT_NAMES.Position, COMPONENT_NAMES.Velocity])
+    this._disposeBag.completable$(world.entityRemoved$([COMPONENT_NAMES.Position, COMPONENT_NAMES.Velocity]))
       .subscribe(entity => {
         // This function is called whenever an entity with both 'position' and
         // 'velocity' components is removed from the world. It can also be called
