@@ -1,6 +1,8 @@
 # super-ecs
 Entity Component System library for JavaScript/TypeScript games.
 
+API Docs https://goldenratio.github.io/super-ecs/
+
 ## Basic Usage
 
 > npm install --save super-ecs
