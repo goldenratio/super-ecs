@@ -7,75 +7,74 @@ let entityId = 0;
  * The entity is the container of components.
  */
 export class Entity {
+	/**
+	 * unique id of entity
+	 */
+	public readonly id: number;
 
-  /**
-   * unique id of entity
-   */
-  public readonly id: number;
+	private readonly _componentAddedSubject$ = new Subject<Component>();
+	private readonly _componentRemovedSubject$ = new Subject<Component>();
 
-  private readonly _componentAddedSubject$ = new Subject<Component>();
-  private readonly _componentRemovedSubject$ = new Subject<Component>();
+	private readonly _componentMap = new Map<symbol, Component>();
 
-  private readonly _componentMap = new Map<symbol, Component>();
+	constructor() {
+		this.id = entityId++;
+	}
 
-  constructor() {
-    this.id = entityId++;
-  }
+	/**
+	 * Check if this entity has a component by name.
+	 * @param componentName
+	 */
+	hasComponent(componentName: symbol): boolean {
+		return this._componentMap.has(componentName);
+	}
 
-  /**
-   * Check if this entity has a component by name.
-   * @param componentName
-   */
-  hasComponent(componentName: symbol): boolean {
-    return this._componentMap.has(componentName);
-  }
+	/**
+	 * Get a component of this entity by name.
+	 * @param componentName
+	 */
+	getComponent<T extends Component>(componentName: symbol): T | undefined {
+		const component = this._componentMap.get(componentName);
+		if (typeof component !== 'undefined') {
+			return component as T;
+		}
+		return undefined;
+	}
 
-  /**
-   * Get a component of this entity by name.
-   * @param componentName
-   */
-  getComponent<T extends Component>(componentName: symbol): T | undefined {
-    const component = this._componentMap.get(componentName);
-    if (typeof component !== 'undefined') {
-      return component as T;
-    }
-    return undefined;
-  }
+	/**
+	 * Add a component to this entity.
+	 * @param component
+	 */
+	addComponent(component: Component): Entity {
+		this._componentMap.set(component.name, component);
+		this._componentAddedSubject$.next(component);
+		return this;
+	}
 
-  /**
-   * Add a component to this entity.
-   * @param component
-   */
-  addComponent(component: Component): Entity {
-    this._componentMap.set(component.name, component);
-    this._componentAddedSubject$.next(component);
-    return this;
-  }
+	/**
+	 * Remove a component from this entity by name.
+	 * @param componentName
+	 */
+	removeComponent(componentName: symbol): Entity {
+		const component = this._componentMap.get(componentName);
+		if (typeof component !== 'undefined') {
+			this._componentMap.delete(componentName);
+			this._componentRemovedSubject$.next(component);
+		}
+		return this;
+	}
 
-  /**
-   * Remove a component from this entity by name.
-   * @param componentName
-   */
-  removeComponent(componentName: symbol): Entity {
-    const component = this._componentMap.get(componentName);
-    if (typeof component !== 'undefined') {
-      this._componentMap.delete(componentName);
-      this._componentRemovedSubject$.next(component);
-    }
-    return this;
-  }
+	/**
+	 * Stream triggered when a component is added
+	 */
+	get componentAdded$(): Observable<Component> {
+		return this._componentAddedSubject$;
+	}
 
-  /**
-   * Stream triggered when a component is added
-   */
-  get componentAdded$(): Observable<Component> {
-    return this._componentAddedSubject$;
-  }
-
-  /**
-   * Stream triggered when a component is removed
-   */
-  get componentRemoved$(): Observable<Component> {
-    return this._componentRemovedSubject$;
-  }
+	/**
+	 * Stream triggered when a component is removed
+	 */
+	get componentRemoved$(): Observable<Component> {
+		return this._componentRemovedSubject$;
+	}
 }

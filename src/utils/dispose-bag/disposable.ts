@@ -1,5 +1,5 @@
 export interface Disposable {
-  dispose(): void;
+	dispose(): void;
 }
 
 export type DisposeCallback = () => void;
