@@ -1,4 +1,4 @@
-import { Component, Entity } from '../src';
+import { Component, Entity } from '../src/core';
 
 const COMPONENT_A = Symbol('COMPONENT_A');
 const COMPONENT_B = Symbol('COMPONENT_B');
