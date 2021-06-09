@@ -1,4 +1,4 @@
-import { Component, Entity, World } from '../src';
+import { Component, Entity, World } from '../src/core';
 
 class DummyComponent implements Component {
   public name: symbol;

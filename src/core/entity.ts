@@ -1,4 +1,5 @@
 import { Observable, Subject } from 'rxjs';
+
 import { Component } from './component';
 
 let entityId = 0;
