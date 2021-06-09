@@ -4,12 +4,11 @@
   "description": "Entity Component System library",
   "author": "Karthik VJ",
   "scripts": {
-    "clean": "rimraf dist",
-    "build": "npm run clean && rollup -c rollup.config.js",
-    "build:watch": "npm run clean && rollup -w -c rollup.config.js",
+    "build": "rimraf dist && rollup -c rollup.config.js",
+    "build:watch": "rimraf dist && rollup -w -c rollup.config.js",
     "test": "jest --env=node --colors",
     "fix-code-style": "prettier --write src/**/*.ts",
-    "generate-docs": "typedoc --theme minimal --excludePrivate --excludeProtected",
+    "generate-docs": "rimraf docs && typedoc --theme minimal --excludePrivate --excludeProtected",
     "preversion": "npm test",
     "version": "npm run build && npm run generate-docs && git add -A dist && git add -A docs",
     "postversion": "git push && git push --tags"
