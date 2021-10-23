@@ -1,12 +1,14 @@
 on: pull_request
 
 jobs:
-  build:
+  validate-pr:
     runs-on: ubuntu-latest
 
     steps:
       - name: Check out repository
         uses: actions/checkout@v2
+      - name: Install dependencies
+        uses: npm i
       - name: Check code style
         run: npm run check-code-style
       - name: Run test
