@@ -6,12 +6,11 @@ Entity Component System library for JavaScript/TypeScript games.
 - **Example Repo (Vanilla JS):** https://github.com/goldenratio/super-ecs-vanilla-js-example
 - **CDN:** https://unpkg.com/browse/super-ecs/dist/
 
-## Basic Usage
-
 > npm install --save super-ecs
 
 https://www.npmjs.com/package/super-ecs
 
+## Basic Usage
 To define a new component, simply implement `Component`.
 Note that each component should have a unique `name` property.
 
@@ -162,3 +161,9 @@ class MySystem extends System {
 Port of [CES.js](https://github.com/qiao/ces.js) with some changes,
 - instead of `signal`, we use `rxjs`
 - component names should be of type `symbol`
+
+## Release
+```
+npm version {major | minor | patch}
+npm publish
+```
