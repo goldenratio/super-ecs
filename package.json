@@ -7,6 +7,7 @@
     "build": "rimraf dist && rollup -c rollup.config.js",
     "build:watch": "rimraf dist && rollup -w -c rollup.config.js",
     "test": "jest --env=node --colors",
+    "check-code-style": "prettier src/**/*.ts",
     "fix-code-style": "prettier --write src/**/*.ts",
     "generate-docs": "rimraf docs && typedoc --theme minimal --excludePrivate --excludeProtected",
     "preversion": "npm test",
