@@ -4,7 +4,7 @@ on:
       - main
 
 jobs:
-  validate-commit:
+  validate-main-commit:
     runs-on: ubuntu-latest
 
     steps:
