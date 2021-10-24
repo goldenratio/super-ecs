@@ -2743,13 +2743,13 @@ img {
 				<li><strong>Example Repo (Vanilla JS):</strong> <a href="https://github.com/goldenratio/super-ecs-vanilla-js-example">https://github.com/goldenratio/super-ecs-vanilla-js-example</a></li>
 				<li><strong>CDN:</strong> <a href="https://unpkg.com/browse/super-ecs/dist/">https://unpkg.com/browse/super-ecs/dist/</a></li>
 			</ul>
-			<a href="#basic-usage" id="basic-usage" style="color: inherit; text-decoration: none;">
-				<h2>Basic Usage</h2>
-			</a>
 			<blockquote>
 				<p>npm install --save super-ecs</p>
 			</blockquote>
 			<p><a href="https://www.npmjs.com/package/super-ecs">https://www.npmjs.com/package/super-ecs</a></p>
+			<a href="#basic-usage" id="basic-usage" style="color: inherit; text-decoration: none;">
+				<h2>Basic Usage</h2>
+			</a>
 			<p>To define a new component, simply implement <code>Component</code>.
 			Note that each component should have a unique <code>name</code> property.</p>
 			<pre><code class="language-js"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">COMPONENT_NAMES</span><span style="color: #000000"> = {</span>
@@ -2884,6 +2884,12 @@ img {
 				<li>instead of <code>signal</code>, we use <code>rxjs</code></li>
 				<li>component names should be of type <code>symbol</code></li>
 			</ul>
+			<a href="#release" id="release" style="color: inherit; text-decoration: none;">
+				<h2>Release</h2>
+			</a>
+			<pre><code><span style="color: #001080">npm</span><span style="color: #000000"> </span><span style="color: #001080">version</span><span style="color: #000000"> {</span><span style="color: #001080">major</span><span style="color: #000000"> | </span><span style="color: #001080">minor</span><span style="color: #000000"> | </span><span style="color: #001080">patch</span><span style="color: #000000">}</span>
+<span style="color: #001080">npm</span><span style="color: #000000"> </span><span style="color: #001080">publish</span>
+</code></pre>
 		</div>
 		<div style="position:relative;"><a name="typedoc-main-index" class="tsd-anchor"></a></div>
 		<section class="tsd-panel-group tsd-index-group">
@@ -2924,7 +2930,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">Component<wbr>Props&lt;T&gt;<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Partial</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Omit</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">&quot;name&quot;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/goldenratio/super-ecs/blob/331c11a/src/core/component.ts#L12">core/component.ts:12</a></li>
+						<li>Defined in <a href="https://github.com/goldenratio/super-ecs/blob/e9809c4/src/core/component.ts#L12">core/component.ts:12</a></li>
 					</ul>
 				</aside>
 				<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -2940,7 +2946,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">Dispose<wbr>Callback<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/goldenratio/super-ecs/blob/331c11a/src/utils/dispose-bag/disposable.ts#L5">utils/dispose-bag/disposable.ts:5</a></li>
+						<li>Defined in <a href="https://github.com/goldenratio/super-ecs/blob/e9809c4/src/utils/dispose-bag/disposable.ts#L5">utils/dispose-bag/disposable.ts:5</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-type-declaration">
