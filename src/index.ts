@@ -1,1 +1,5 @@
-export * from './core';
+export * from './types';
+export * from './component';
+export { Entity } from './entity';
+export { System } from './system';
+export { World } from './world';

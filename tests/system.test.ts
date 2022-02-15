@@ -1,4 +1,4 @@
-import { System, World } from '../src/core';
+import { System, World } from '../src';
 
 describe('System', () => {
 
