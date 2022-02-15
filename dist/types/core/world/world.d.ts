@@ -1,6 +1,7 @@
 import { Observable } from 'rxjs';
 import { System } from '../system';
 import { Entity } from '../entity';
+import { TickerDataLike } from '../types';
 export declare class World {
     private readonly _systems;
     private readonly _entities;
@@ -42,9 +43,9 @@ export declare class World {
     getEntities(componentNames: ReadonlyArray<symbol>): ReadonlyArray<Entity>;
     /**
      * For each system in the world, call its `update` method.
-     * @param delta
+     * @param tickerData
      */
-    update(delta: number): void;
+    update(tickerData: TickerDataLike): void;
     /**
      * Returns the Observable for entities added with the specified components. The
      * Observable is also emitted when a component is added to an entity causing it

@@ -1046,41 +1046,6 @@
         });
     }
 
-    var DisposeBag = /** @class */ (function () {
-        function DisposeBag() {
-            this._dispose$ = new Subject();
-            this._list = new Set();
-            this._isDisposed = false;
-        }
-        DisposeBag.prototype.add = function (item) {
-            if (this._isDisposed) {
-                throw new Error('disposeBag already disposed, create a new disposeBag');
-            }
-            this._list.add(function () {
-                if (typeof item === 'function') {
-                    item();
-                }
-                else {
-                    item.dispose();
-                }
-            });
-        };
-        DisposeBag.prototype.completable$ = function (item) {
-            if (this._isDisposed) {
-                throw new Error('disposeBag already disposed, create a new disposeBag');
-            }
-            return item.pipe(takeUntil(this._dispose$));
-        };
-        DisposeBag.prototype.dispose = function () {
-            this._isDisposed = true;
-            this._dispose$.next();
-            this._dispose$.complete();
-            this._list.forEach(function (cb) { return cb(); });
-            this._list.clear();
-        };
-        return DisposeBag;
-    }());
-
     var entityId = 0;
     /**
      * The entity is the container of components.
@@ -1178,10 +1143,10 @@
         };
         /**
          * Update loop
-         * @param delta
+         * @param tickerData
          */
-        System.prototype.update = function (delta) {
-            //
+        System.prototype.update = function (tickerData) {
+            // empty
         };
         Object.defineProperty(System.prototype, "world", {
             /**
@@ -1472,13 +1437,13 @@
         };
         /**
          * For each system in the world, call its `update` method.
-         * @param delta
+         * @param tickerData
          */
-        World.prototype.update = function (delta) {
+        World.prototype.update = function (tickerData) {
             var systems = this._systems;
             var len = systems.length;
             for (var i = 0; i < len; ++i) {
-                systems[i].update(delta);
+                systems[i].update(tickerData);
             }
         };
         /**
@@ -1540,7 +1505,6 @@
         return World;
     }());
 
-    exports.DisposeBag = DisposeBag;
     exports.Entity = Entity;
     exports.System = System;
     exports.World = World;

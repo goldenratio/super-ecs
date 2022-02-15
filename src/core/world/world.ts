@@ -7,6 +7,7 @@ import { Component } from '../component';
 
 import { EntityList } from './entity-list';
 import { Family } from './family';
+import { TickerDataLike } from '../types';
 
 export class World {
 	private readonly _systems: Array<System> = [];
@@ -119,14 +120,14 @@ export class World {
 
 	/**
 	 * For each system in the world, call its `update` method.
-	 * @param delta
+	 * @param tickerData
 	 */
-	update(delta: number): void {
+	update(tickerData: TickerDataLike): void {
 		const systems = this._systems;
 		const len = systems.length;
 
 		for (let i = 0; i < len; ++i) {
-			systems[i].update(delta);
+			systems[i].update(tickerData);
 		}
 	}
 

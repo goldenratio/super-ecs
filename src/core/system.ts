@@ -1,4 +1,5 @@
 import { World } from './world';
+import { TickerDataLike } from './types';
 
 /**
  * The system is responsible for updating the entities.
@@ -24,10 +25,10 @@ export class System {
 
 	/**
 	 * Update loop
-	 * @param delta
+	 * @param tickerData
 	 */
-	update(delta: number): void {
-		//
+	update(tickerData: TickerDataLike): void {
+		// empty
 	}
 
 	/**

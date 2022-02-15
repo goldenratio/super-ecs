@@ -1,4 +1,5 @@
 import { World } from './world';
+import { TickerDataLike } from './types';
 /**
  * The system is responsible for updating the entities.
  */
@@ -16,9 +17,9 @@ export declare class System {
     removedFromWorld(world: World): void;
     /**
      * Update loop
-     * @param delta
+     * @param tickerData
      */
-    update(delta: number): void;
+    update(tickerData: TickerDataLike): void;
     /**
      * Reference to the world
      */
