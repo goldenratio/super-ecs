@@ -171,7 +171,14 @@ Port of [CES.js](https://github.com/qiao/ces.js) with some changes,
 - component names should be of type `symbol`
 
 ## Release
+
+### NPM
 ```
 npm version {major | minor | patch}
 npm publish
+```
+
+### JSR
+```
+deno publish --unstable-sloppy-imports --no-check
 ```
