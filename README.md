@@ -14,6 +14,8 @@ Entity Component System library for JavaScript/TypeScript games.
 https://www.npmjs.com/package/super-ecs
 
 ### JSR
+> deno add jsr:@goldenratio/super-ecs
+
 https://jsr.io/@goldenratio/super-ecs
 
 ## Basic Usage
