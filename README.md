@@ -1,10 +1,13 @@
 # super-ecs
 Entity Component System library for JavaScript/TypeScript games.
 
+
 - **API Docs:** https://goldenratio.github.io/super-ecs/
 - **Example Repo:** https://github.com/goldenratio/super-ecs-example
 - **Example Repo (Vanilla JS):** https://github.com/goldenratio/super-ecs-vanilla-js-example
 - **CDN:** https://unpkg.com/browse/super-ecs/dist/
+
+### Status: Feature Complete
 
 ## Install
 
@@ -12,11 +15,6 @@ Entity Component System library for JavaScript/TypeScript games.
 > npm install --save super-ecs
 
 https://www.npmjs.com/package/super-ecs
-
-### JSR
-> deno add jsr:@goldenratio/super-ecs
-
-https://jsr.io/@goldenratio/super-ecs
 
 ## Basic Usage
 To define a new component, simply implement `Component`.
@@ -176,9 +174,4 @@ Port of [CES.js](https://github.com/qiao/ces.js) with some changes,
 ```
 npm version {major | minor | patch}
 npm publish
-```
-
-### JSR
-```
-deno publish --unstable-sloppy-imports --no-check
 ```
