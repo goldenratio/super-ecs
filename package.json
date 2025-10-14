@@ -4,12 +4,10 @@
   "description": "Entity Component System library",
   "author": "Karthik VJ",
   "scripts": {
-    "build": "rimraf dist && rollup -c rollup.config.js",
+    "build": "rm -rf ./dist && rollup -c rollup.config.js",
     "build:watch": "rimraf dist && rollup -w -c rollup.config.js",
     "test": "node --import tsx --test ./tests/*.test.ts",
-    "check-code-style": "prettier \"src/**/*.ts\"",
-    "fix-code-style": "prettier --write \"src/**/*.ts\"",
-    "generate-docs": "rimraf docs && typedoc --theme minimal --excludePrivate --excludeProtected",
+    "generate-docs": "rm -rf ./docs && typedoc --theme minimal --excludePrivate --excludeProtected",
     "preversion": "npm test",
     "version": "npm run build && npm run generate-docs && git add -A dist && git add -A docs",
     "postversion": "git push && git push --tags"
@@ -40,8 +38,6 @@
     "@rollup/plugin-node-resolve": "^13.0.0",
     "@rollup/plugin-typescript": "^8.2.1",
     "@types/node": "24.7.2",
-    "prettier": "^2.3.1",
-    "rimraf": "^2.6.3",
     "rollup": "^2.51.0",
     "rollup-plugin-generate-declarations": "^1.1.1",
     "rollup-plugin-sourcemaps": "^0.6.3",
