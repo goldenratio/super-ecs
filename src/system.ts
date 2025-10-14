@@ -1,5 +1,5 @@
 import { World } from './world';
-import { TickerDataLike } from './types';
+import type { TickerDataLike } from './types';
 
 /**
  * The system is responsible for updating the entities.

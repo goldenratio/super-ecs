@@ -1,29 +1,18 @@
 {
+  "$schema": "https://json.schemastore.org/tsconfig",
   "compileOnSave": false,
   "compilerOptions": {
-    "noImplicitAny": true,
-    "noUnusedLocals": true,
-    "strict": true,
-    "module": "esnext",
+    "module": "es2020",
     "moduleResolution": "node",
-    "target": "es5",
-    "esModuleInterop": true,
-    "allowJs": false,
-    "declarationDir": "./dist/types",
+    "lib": [ "ESNext", "DOM" ],
+    "target": "esnext",
+    "outDir": "js",
+    "declarationDir": "dist/types",
     "declaration": true,
-    "importHelpers": true,
-    "baseUrl": ".",
-    "lib": [
-      "esnext",
-      "dom"
-    ],
-    "typeRoots": [
-      "./node_modules/@types"
-    ],
-    "types": [
-      "node",
-      "jest"
-    ]
+    // rules
+    "strict": true,
+    "verbatimModuleSyntax": true,
+    "erasableSyntaxOnly": true
   },
   "include": [
     "./src"

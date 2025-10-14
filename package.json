@@ -4,8 +4,8 @@
   "description": "Entity Component System library",
   "author": "Karthik VJ",
   "scripts": {
-    "build": "rm -rf ./dist && rollup -c rollup.config.js",
-    "build:watch": "rimraf dist && rollup -w -c rollup.config.js",
+    "clean": "rm -rf js dist",
+    "build": "npm run clean && tsc && node ./build.ts",
     "test": "node --import tsx --test ./tests/*.test.ts",
     "generate-docs": "rm -rf ./docs && typedoc --theme minimal --excludePrivate --excludeProtected",
     "preversion": "npm test",
@@ -13,10 +13,14 @@
     "postversion": "git push && git push --tags"
   },
   "type": "module",
-  "main": "dist/super-ecs.js",
-  "module": "dist/super-ecs.es.js",
-  "umd": "dist/super-ecs.umd.js",
-  "types": "dist/types/index.d.ts",
+  "module": "./dist/super-ecs.js",
+  "types": "./dist/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/super-ecs.js"
+    }
+  },
   "homepage": "https://github.com/goldenratio/super-ecs",
   "bugs": {
     "url": "https://github.com/goldenratio/super-ecs/issues"
@@ -33,19 +37,11 @@
     "LICENSE"
   ],
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^19.0.0",
-    "@rollup/plugin-json": "^4.1.0",
-    "@rollup/plugin-node-resolve": "^13.0.0",
-    "@rollup/plugin-typescript": "^8.2.1",
     "@types/node": "24.7.2",
-    "rollup": "^2.51.0",
-    "rollup-plugin-generate-declarations": "^1.1.1",
-    "rollup-plugin-sourcemaps": "^0.6.3",
-    "ts-loader": "^9.2.3",
-    "tslib": "^2.2.0",
-    "tsx": "^4.20.6",
-    "typedoc": "^0.20.36",
-    "typescript": "^4.2.4"
+    "esbuild": "0.25.10",
+    "tsx": "4.20.6",
+    "typedoc": "0.28.14",
+    "typescript": "5.9.3"
   },
   "peerDependencies": {
     "rxjs": "^7.5.4"

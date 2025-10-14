@@ -3,11 +3,11 @@ import { takeUntil } from 'rxjs/operators';
 
 import { System } from '../system';
 import { Entity } from '../entity';
-import { Component } from '../component';
+import type { Component } from '../component';
 
 import { EntityList } from './entity-list';
 import { Family } from './family';
-import { TickerDataLike } from '../types';
+import type { TickerDataLike } from '../types';
 
 export class World {
 	private readonly _systems: Array<System> = [];
