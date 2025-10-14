@@ -1,13 +1,13 @@
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
-import { System } from '../system';
-import { Entity } from '../entity';
-import type { Component } from '../component';
+import { System } from '../system.js';
+import { Entity } from '../entity.js';
+import type { Component } from '../component.js';
 
-import { EntityList } from './entity-list';
-import { Family } from './family';
-import type { TickerDataLike } from '../types';
+import { EntityList } from './entity-list.js';
+import { Family } from './family.js';
+import type { TickerDataLike } from '../types/index.js';
 
 export class World {
 	private readonly _systems: Array<System> = [];

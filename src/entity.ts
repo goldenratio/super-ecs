@@ -1,6 +1,6 @@
 import { Observable, Subject } from 'rxjs';
 
-import type { Component } from './component';
+import type { Component } from './component.js';
 
 let entityId = 0;
 

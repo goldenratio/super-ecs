@@ -1,5 +1,5 @@
-export * from './types';
-export * from './component';
-export { Entity } from './entity';
-export { System } from './system';
-export { World } from './world';
+export * from './types/index.js';
+export * from './component.js';
+export { Entity } from './entity.js';
+export { System } from './system.js';
+export { World } from './world/index.js';

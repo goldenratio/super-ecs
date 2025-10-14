@@ -1,5 +1,5 @@
-import { World } from './world';
-import type { TickerDataLike } from './types';
+import { World } from './world/index.js';
+import type { TickerDataLike } from './types/index.js';
 
 /**
  * The system is responsible for updating the entities.

@@ -1,5 +1,5 @@
-import { Entity } from '../entity';
-import { EntityNode } from './entity-node';
+import { Entity } from '../entity.js';
+import { EntityNode } from './entity-node.js';
 
 /**
  * The entity list is a doubly-linked-list which allows the
