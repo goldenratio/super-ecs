@@ -7,7 +7,7 @@
     "clean": "rm -rf js dist",
     "build": "npm run clean && tsc && node ./build.ts",
     "test": "node --import tsx --test ./tests/*.test.ts",
-    "generate-docs": "rm -rf ./docs && typedoc --theme minimal --excludePrivate --excludeProtected",
+    "generate-docs": "rm -rf ./docs && typedoc --theme default --excludePrivate --excludeProtected",
     "preversion": "npm test",
     "version": "npm run build && npm run generate-docs && git add -A dist && git add -A docs",
     "postversion": "git push && git push --tags"
