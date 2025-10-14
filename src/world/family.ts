@@ -1,9 +1,9 @@
 import { Observable, Subject } from 'rxjs';
 
-import { Entity } from '../entity';
-import { Component } from '../component';
+import { Entity } from '../entity.js';
+import type { Component } from '../component.js';
 
-import { EntityList } from './entity-list';
+import { EntityList } from './entity-list.js';
 
 export class Family {
 	private readonly _componentNames: ReadonlyArray<symbol>;

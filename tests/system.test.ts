@@ -1,45 +1,47 @@
+import { describe, it } from 'node:test';
+import assert from 'node:assert';
+
 import { System, World } from '../src';
 
 describe('System', () => {
 
-  it('should call addedToWorld when system is added to world', function () {
-
+  it('should call addedToWorld when system is added to world', () => {
+    let addedToWorld = false;
     const system = new System();
-    const addedToWorld = system.addedToWorld = jest.fn();
+    system.addedToWorld = () => { addedToWorld = true; };
 
     const world = new World();
     world.addSystem(system);
 
-    expect(addedToWorld).toHaveBeenCalled();
+    assert.ok(addedToWorld, 'expected addedToWorld to be called');
   });
 
-  it('should call removedFromWorld when system is removed from world', function () {
-
+  it('should call removedFromWorld when system is removed from world', () => {
+    let removedFromWorld = false;
     const system = new System();
-    const removedFromWorld = system.removedFromWorld = jest.fn();
+    system.removedFromWorld = () => { removedFromWorld = true; };
 
     const world = new World();
     world.addSystem(system);
 
     world.removeSystem(system);
 
-    expect(removedFromWorld).toHaveBeenCalled();
+    assert.ok(removedFromWorld, 'expected removedFromWorld to be called');
   });
 
-  it('should have correct reference to world', function () {
-
+  it('should have correct reference to world', () => {
     const system = new System();
 
     const world = new World();
-    expect(() => system.world).toThrow();
+    assert.throws(() => system.world);
 
     world.addSystem(system);
 
-    expect(system.world).toBeDefined();
-    expect(system.world).toBe(world);
+    assert.ok(system.world);
+    assert.strictEqual(system.world, world);
 
     world.removeSystem(system);
 
-    expect(() => system.world).toThrow();
+    assert.throws(() => system.world);
   });
 });

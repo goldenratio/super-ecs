@@ -1,3 +1,6 @@
+import { describe, it } from 'node:test';
+import assert from 'node:assert';
+
 import { Component, Entity } from '../src';
 
 const COMPONENT_A = Symbol('COMPONENT_A');
@@ -16,111 +19,88 @@ describe('Entity', () => {
     const a = new Entity();
     const b = new Entity();
 
-    expect(a.id).toBe(0);
-    expect(b.id).toBe(1);
+    assert.strictEqual(a.id, 0);
+    assert.strictEqual(b.id, 1);
   });
 
-  it('should return true when checking added components', function () {
+  it('should return true when checking added components', () => {
     const CompA = new DummyComponent(COMPONENT_A);
     const CompB = new DummyComponent(COMPONENT_B);
     const CompC = new DummyComponent(COMPONENT_C);
 
     const entity = new Entity();
-    entity
-      .addComponent(CompA)
-      .addComponent(CompB)
-      .addComponent(CompC);
+    entity.addComponent(CompA).addComponent(CompB).addComponent(CompC);
 
-    expect(entity.hasComponent(COMPONENT_A)).toBe(true);
-    expect(entity.hasComponent(COMPONENT_B)).toBe(true);
-    expect(entity.hasComponent(COMPONENT_C)).toBe(true);
+    assert.strictEqual(entity.hasComponent(COMPONENT_A), true);
+    assert.strictEqual(entity.hasComponent(COMPONENT_B), true);
+    assert.strictEqual(entity.hasComponent(COMPONENT_C), true);
   });
 
-  it('should return false when checking removed components', function () {
+  it('should return false when checking removed components', () => {
     const CompA = new DummyComponent(COMPONENT_A);
     const CompB = new DummyComponent(COMPONENT_B);
     const CompC = new DummyComponent(COMPONENT_C);
 
     const entity = new Entity();
-    entity
-      .addComponent(CompA)
-      .addComponent(CompB)
-      .addComponent(CompC);
+    entity.addComponent(CompA).addComponent(CompB).addComponent(CompC);
 
-    entity
-      .removeComponent(COMPONENT_A)
-      .removeComponent(COMPONENT_B);
+    entity.removeComponent(COMPONENT_A).removeComponent(COMPONENT_B);
 
-    expect(entity.hasComponent(COMPONENT_A)).toBe(false);
-    expect(entity.hasComponent(COMPONENT_B)).toBe(false);
-    expect(entity.hasComponent(COMPONENT_C)).toBe(true);
+    assert.strictEqual(entity.hasComponent(COMPONENT_A), false);
+    assert.strictEqual(entity.hasComponent(COMPONENT_B), false);
+    assert.strictEqual(entity.hasComponent(COMPONENT_C), true);
   });
 
-  it('should return the correct component', function () {
+  it('should return the correct component', () => {
     const CompA = new DummyComponent(COMPONENT_A);
     const CompB = new DummyComponent(COMPONENT_B);
     const CompC = new DummyComponent(COMPONENT_C);
 
     const entity = new Entity();
-    entity
-      .addComponent(CompA)
-      .addComponent(CompB)
-      .addComponent(CompC);
+    entity.addComponent(CompA).addComponent(CompB).addComponent(CompC);
 
-    expect(entity.getComponent(COMPONENT_A)).toBe(CompA);
-    expect(entity.getComponent(COMPONENT_B)).toBe(CompB);
-    expect(entity.getComponent(COMPONENT_C)).toBe(CompC);
-    expect(entity.getComponent(Symbol('invalid'))).toBeUndefined();
+    assert.strictEqual(entity.getComponent(COMPONENT_A), CompA);
+    assert.strictEqual(entity.getComponent(COMPONENT_B), CompB);
+    assert.strictEqual(entity.getComponent(COMPONENT_C), CompC);
+    assert.strictEqual(entity.getComponent(Symbol('invalid')), undefined);
   });
 
-  it('should emit Observables when adding components', function () {
-
+  it('should emit Observables when adding components', () => {
     const CompA = new DummyComponent(COMPONENT_A);
     const CompB = new DummyComponent(COMPONENT_B);
     const CompC = new DummyComponent(COMPONENT_C);
 
     let count = 0;
     const entity = new Entity();
-    entity
-      .componentAdded$
-      .subscribe(() => {
-        count ++;
-      });
 
-    entity
-      .addComponent(CompA)
-      .addComponent(CompB)
-      .addComponent(CompC);
+    entity.componentAdded$.subscribe(() => {
+      count++;
+    });
 
-    expect(count).toBe(3);
+    entity.addComponent(CompA).addComponent(CompB).addComponent(CompC);
+
+    assert.strictEqual(count, 3);
   });
 
-  it('should emit signals when removing components', function () {
-
+  it('should emit signals when removing components', () => {
     const CompA = new DummyComponent(COMPONENT_A);
     const CompB = new DummyComponent(COMPONENT_B);
     const CompC = new DummyComponent(COMPONENT_C);
 
     let count = 0;
     const entity = new Entity();
-    entity
-      .componentRemoved$
-      .subscribe(() => {
-        count ++;
-      });
 
-    entity
-      .addComponent(CompA)
-      .addComponent(CompB)
-      .addComponent(CompC);
+    entity.componentRemoved$.subscribe(() => {
+      count++;
+    });
 
-    entity
-      .removeComponent(COMPONENT_A)
-      .removeComponent(COMPONENT_B);
+    entity.addComponent(CompA).addComponent(CompB).addComponent(CompC);
+
+    entity.removeComponent(COMPONENT_A).removeComponent(COMPONENT_B);
 
     // shouldn't throw error for invalid component name
     entity.removeComponent(Symbol('invalid'));
 
-    expect(count).toBe(2);
+    assert.strictEqual(count, 2);
   });
 });

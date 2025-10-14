@@ -4,20 +4,23 @@
   "description": "Entity Component System library",
   "author": "Karthik VJ",
   "scripts": {
-    "build": "rimraf dist && rollup -c rollup.config.js",
-    "build:watch": "rimraf dist && rollup -w -c rollup.config.js",
-    "test": "jest --env=node --colors",
-    "check-code-style": "prettier \"src/**/*.ts\"",
-    "fix-code-style": "prettier --write \"src/**/*.ts\"",
-    "generate-docs": "rimraf docs && typedoc --theme minimal --excludePrivate --excludeProtected",
+    "clean": "rm -rf js dist",
+    "build": "npm run clean && tsc && node ./build.ts",
+    "test": "node --import tsx --test ./tests/*.test.ts",
+    "generate-docs": "rm -rf ./docs && typedoc --theme default --excludePrivate --excludeProtected",
     "preversion": "npm test",
     "version": "npm run build && npm run generate-docs && git add -A dist && git add -A docs",
     "postversion": "git push && git push --tags"
   },
-  "main": "dist/super-ecs.js",
-  "module": "dist/super-ecs.es.js",
-  "umd": "dist/super-ecs.umd.js",
-  "types": "dist/types/index.d.ts",
+  "type": "module",
+  "module": "./dist/super-ecs.js",
+  "types": "./dist/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/super-ecs.js"
+    }
+  },
   "homepage": "https://github.com/goldenratio/super-ecs",
   "bugs": {
     "url": "https://github.com/goldenratio/super-ecs/issues"
@@ -34,24 +37,13 @@
     "LICENSE"
   ],
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^19.0.0",
-    "@rollup/plugin-json": "^4.1.0",
-    "@rollup/plugin-node-resolve": "^13.0.0",
-    "@rollup/plugin-typescript": "^8.2.1",
-    "@types/jest": "^26.0.23",
-    "jest": "^27.0.4",
-    "prettier": "^2.3.1",
-    "rimraf": "^2.6.3",
-    "rollup": "^2.51.0",
-    "rollup-plugin-generate-declarations": "^1.1.1",
-    "rollup-plugin-sourcemaps": "^0.6.3",
-    "ts-jest": "^27.0.3",
-    "ts-loader": "^9.2.3",
-    "tslib": "^2.2.0",
-    "typedoc": "^0.20.36",
-    "typescript": "^4.2.4"
+    "@types/node": "24.7.2",
+    "esbuild": "0.25.10",
+    "tsx": "4.20.6",
+    "typedoc": "0.28.14",
+    "typescript": "5.9.3"
   },
-  "dependencies": {
+  "peerDependencies": {
     "rxjs": "^7.5.4"
   }
 }
