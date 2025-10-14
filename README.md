@@ -164,6 +164,8 @@ class MySystem extends System {
 }
 ```
 
+`DisposeBag` util is avialable [here](https://github.com/goldenratio/super-ecs-example/blob/main/src/utils/dispose-bag/dispose-bag.ts)
+
 Port of [CES.js](https://github.com/qiao/ces.js) with some changes,
 - instead of `signal`, we use `rxjs`
 - component names should be of type `symbol`
