@@ -1,4 +1,4 @@
-import { World } from './world/index.js';
+import type { World } from './world/index.js';
 import type { TickerDataLike } from './types/index.js';
 
 /**

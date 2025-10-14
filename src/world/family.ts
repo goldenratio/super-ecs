@@ -1,6 +1,7 @@
-import { Observable, Subject } from 'rxjs';
+import type { Observable } from 'rxjs';
+import { Subject } from 'rxjs';
 
-import { Entity } from '../entity.js';
+import type { Entity } from '../entity.js';
 import type { Component } from '../component.js';
 
 import { EntityList } from './entity-list.js';
