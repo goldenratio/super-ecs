@@ -9,7 +9,7 @@
     "test": "node --import tsx --test ./tests/*.test.ts",
     "generate-docs": "rm -rf ./docs && typedoc --theme default --excludePrivate --excludeProtected",
     "preversion": "npm test",
-    "version": "npm run build && npm run generate-docs && git add -A docs",
+    "version": "npm run build",
     "postversion": "git push && git push --tags"
   },
   "type": "module",
