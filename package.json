@@ -44,6 +44,6 @@
     "typescript": "5.9.3"
   },
   "peerDependencies": {
-    "rxjs": ">=7"
+    "rxjs": "^7"
   }
 }
