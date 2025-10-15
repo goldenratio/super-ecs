@@ -1,6 +1,5 @@
 import type { Observable } from 'rxjs';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { Subject, takeUntil } from 'rxjs';
 
 import type { System } from '../system.js';
 import type { Entity } from '../entity.js';
