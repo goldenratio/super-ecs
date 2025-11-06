@@ -1,0 +1,13 @@
+{
+  "name": "@goldenratio/super-ecs",
+  "version": "3.0.1",
+  "license": "MIT",
+  "exports": "./src/index.ts",
+  "publish": {
+    "include": [
+      "LICENSE",
+      "README.md",
+      "src/**/*.ts"
+    ]
+  }
+}
