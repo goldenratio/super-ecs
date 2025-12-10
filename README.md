@@ -7,7 +7,8 @@ Entity Component System library for JavaScript/TypeScript games.
 - **Example Repo (Vanilla JS):** https://github.com/goldenratio/super-ecs-vanilla-js-example
 - **CDN:** https://unpkg.com/browse/super-ecs/dist/
 
-### Status: Feature Complete
+> [!NOTE]
+> **Status:** Feature Complete
 
 ## Install
 
