@@ -173,7 +173,14 @@ Port of [CES.js](https://github.com/qiao/ces.js) with some changes,
 ## Release
 
 ### NPM
-```
+```console
 npm version {major | minor | patch}
 npm publish
+
+# If you have ignore-scripts enabled
+npm version {major | minor | patch}
+npm run version
+npm run postversion
+npm publish
+
 ```
