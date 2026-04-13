@@ -1,7 +1,9 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert';
 
-import { Component, Entity, World } from '../src';
+import type { Component } from '../src/component.js';
+import { Entity } from '../src/entity.js';
+import { World } from '../src/world/world.js';
 
 class DummyComponent implements Component {
   public name: symbol;

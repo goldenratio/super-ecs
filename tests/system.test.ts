@@ -1,7 +1,8 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert';
 
-import { System, World } from '../src';
+import { System } from '../src/system.js';
+import { World } from '../src/world/world.js';
 
 describe('System', () => {
 

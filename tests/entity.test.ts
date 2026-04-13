@@ -1,7 +1,8 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert';
 
-import { Component, Entity } from '../src';
+import type { Component } from '../src/component.js';
+import { Entity } from '../src/entity.js';
 
 const COMPONENT_A = Symbol('COMPONENT_A');
 const COMPONENT_B = Symbol('COMPONENT_B');
