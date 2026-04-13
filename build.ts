@@ -2,9 +2,13 @@
 
 import fs from "node:fs";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { createGzip } from 'node:zlib';
 
 import { build } from "esbuild";
+
+const _filename = fileURLToPath(import.meta.url);
+const _dirname = path.dirname(_filename);
 
 interface BuildOptions {
   readonly minify?: boolean;
@@ -44,6 +48,9 @@ async function perform_build(options?: BuildOptions): Promise<void> {
   const src_path = path.join("src", "index.ts");
   const dest_path = path.join("dist", target_file_name);
 
+  const tsconfigPath = path.resolve(_dirname, "tsconfig.lib.json");
+  console.log("using tsconfig from: ", tsconfigPath);
+
   console.log(`Building... ${src_path} -> ${dest_path}`);
   await build({
     entryPoints: [src_path],
@@ -54,6 +61,7 @@ async function perform_build(options?: BuildOptions): Promise<void> {
     bundle: true,
     minify: minify,
     sourcemap: true,
+    tsconfig: tsconfigPath,
     drop: ["console", "debugger"],
     external: ["rxjs"],
     define: {

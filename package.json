@@ -5,7 +5,8 @@
   "author": "Karthik VJ",
   "scripts": {
     "clean": "rm -rf js dist",
-    "build": "npm run clean && tsc && node ./build.ts",
+    "gen-types": "tsc -p ./tsconfig.lib.json",
+    "build": "npm run clean && npm run gen-types && node ./build.ts",
     "test": "node --import tsx --test ./tests/*.test.ts",
     "generate-docs": "rm -rf ./docs && typedoc --theme default --excludePrivate --excludeProtected",
     "preversion": "npm test",
